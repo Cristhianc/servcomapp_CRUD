@@ -1,5 +1,5 @@
 <?php
-
+defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 /**
  * Se ejecuta cuando el plugin es desinstalado.
  *

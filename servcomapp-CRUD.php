@@ -8,13 +8,13 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
  * dependencias usadas por el plugin, registra las funciones de activacion y
  * desactivacion, y define una funcion que inicia el plugin.
  *
- * @link              
+ * @link							https://github.com/Cristhianc/servcomapp_CRUD
  * @since             1.0.0
  * @package           servcomapp CRUD
  *
  * @wordpress-plugin
  * Plugin Name:       servcomapp CRUD
- * Plugin URI:        #
+ * Plugin URI:        https://github.com/Cristhianc/servcomapp_CRUD
  * Description:       Plugin que maneja la data del sistema de informacion
  * Version:           1.0.0
  * Author:            Cristhian Caicedo
@@ -44,29 +44,35 @@ if ( ! defined( 'WPINC' ) ) {
  * El codigo que corre durante la activacion del Plugin.
  * Esta accion es documentada en includes/class-activador-nombre-plugin.php
  */
+
+/*
 function activar_nombre_plugin() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name-activator.php';
-	Plugin_Name_Activator::activate();
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-nombre-plugin-activador.php';
+	servcomapp_crud_activador::activar();
 }
+*/
 
 /**
  * El codigo que corre durante la desactivacion del Plugin.
  * Esta accion es documentada en includes/class-plugin-name-deactivator.php
  */
+
+/*
 function desactivar_nombre_plugin() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name-deactivator.php';
-	Plugin_Name_Deactivator::deactivate();
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-nombre-plugin-desactivador.php';
+	servcomapp_crud_desactivador::desactivar();
 }
 
 register_activation_hook( __FILE__, 'activar_nombre_plugin' );
 register_deactivation_hook( __FILE__, 'desactivar_nombre_plugin' );
+*/
 
 /**
  * La clase central del plugin que es usada para definir internacionalizacion,
  * hooks especificos del administrador,y hooks de la pagina web orientados al
  * publico.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-servcomapp-crud.php';
 
 /**
  * Comienza la ejecucon del plugin.
@@ -77,10 +83,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
  *
  * @since    1.0.0
  */
-function run_plugin_name() {
+function run_nombre_plugin() {
 
-	$plugin = new Plugin_Name();
+	$plugin = new servcomapp_crud();
 	$plugin->run();
-
 }
-run_plugin_name();
+run_nombre_plugin();
+?>
