@@ -63,8 +63,15 @@ class servcomapp_crud_admin {
 		 * definidos y las funciones definidas en esta clase.
 		 */
 
-		wp_enqueue_style( $this->nombre_plugin, plugin_dir_url( __FILE__ ) . 'css/servcomapp-crud-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'servcomapp-crud-admin',
+			plugin_dir_url( __FILE__ ) . 'css/servcomapp-crud-admin.css'
+		);
 
+		wp_enqueue_style( 'bootstrap',
+			plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css',
+			array(),
+			'3.3.7',
+			'all' );
 	}
 
 	/**
@@ -73,6 +80,7 @@ class servcomapp_crud_admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
+
 
 		/**
 		 *
@@ -83,9 +91,38 @@ class servcomapp_crud_admin {
 		 * El servcomapp_crud_cargador creara entonces la relacion entre los hooks
 		 * definidos y las funciones definidas en esta clase.
 		 */
-
-		wp_enqueue_script( $this->nombre_plugin, plugin_dir_url( __FILE__ ) . 'js/servcomapp-crud-admin.js', array( 'jquery' ), $this->version, false );
-
+	 	wp_enqueue_script( 'jquery-3.1.1',
+			plugin_dir_url( __FILE__ ) . 'js/jquery-3.1.1.js',
+			array(),
+			'3.1.1',
+			true
+		);
+		wp_enqueue_script( 'servcomapp-javascript',
+ 			plugin_dir_url( __FILE__ ) . 'js/funcionalidades_servcomapp.js',
+ 			array('jquery'),
+ 			$this->version,
+ 			true
+ 		);
+		wp_enqueue_script( 'bootstrap',
+			plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js',
+			array(),
+			'3.3.7',
+			true
+		);
 	}
 
+
+
+	public function agregar_menu_lateral_admin() {
+		add_menu_page('Aplicacion de manejo del CRUD del sistema de informacion',
+			'servcomapp CRUD',
+			'manage_options',
+			$this->nombre_plugin,
+			array($this, 'display_plugin_setup_page')
+		);
+	}
+
+	public function display_plugin_setup_page() {
+		include_once( 'partials/servcomapp-crud-admin-exhibir.php' );
+	}
 }

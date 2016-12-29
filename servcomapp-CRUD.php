@@ -83,10 +83,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-servcomapp-crud.php';
  *
  * @since    1.0.0
  */
-function run_nombre_plugin() {
+function run_servcomapp_crud() {
 
 	$plugin = new servcomapp_crud();
 	$plugin->run();
 }
-run_nombre_plugin();
+run_servcomapp_crud();
 ?>

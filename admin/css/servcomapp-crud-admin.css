@@ -1,4 +1,31 @@
 /**
- * All of the CSS for your admin-specific functionality should be
- * included in this file.
+ * Todo el CSS necesario para  la funcionalidad especifica del area de adminis-
+ * tracion deberia estar incluido en este archivo.
  */
+
+/* Titulo del plugin*/
+#servcomapp_titulo {
+  margin: 20px;
+  font-weight: bold;
+}
+/*Botones tipo radio de la pestaña usuarios*/
+#rbtn_usuarios {
+  margin:20px 0px 30px 240px;
+}
+/*Bloque que contiene a los distintos programas*/
+#bloque_programas {
+  margin: 40px;
+}
+/*Boton que añade un nuevo programa*/
+#add_programa {
+  margin:30px 0px 0px 30px;
+}
+/*Formulario de usuarios*/
+#form_usuarios {
+  margin-left: 85px;
+}
+/*Formulario de tutores e instituciones*/
+#form_tutores, #form_instituciones {
+  margin-left: 90px;
+  margin-top: 20px;
+}

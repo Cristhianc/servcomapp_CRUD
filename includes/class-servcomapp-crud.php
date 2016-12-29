@@ -158,6 +158,7 @@ class servcomapp_crud {
 
 		$this->cargador->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->cargador->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->cargador->add_action( 'admin_menu', $plugin_admin, 'agregar_menu_lateral_admin' );
 
 	}
 
