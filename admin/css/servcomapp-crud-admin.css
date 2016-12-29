@@ -10,7 +10,7 @@
 }
 /*Botones tipo radio de la pestaña usuarios*/
 #rbtn_usuarios {
-  margin:20px 0px 30px 240px;
+  margin:20px 0px 30px 150px;
 }
 /*Bloque que contiene a los distintos programas*/
 #bloque_programas {
@@ -20,12 +20,17 @@
 #add_programa {
   margin:30px 0px 0px 30px;
 }
-/*Formulario de usuarios*/
-#form_usuarios {
-  margin-left: 85px;
+/*Titulos de los formularios*/
+.titulo_crear {
+  margin-left: 160px;
 }
 /*Formulario de tutores e instituciones*/
 #form_tutores, #form_instituciones {
-  margin-left: 90px;
   margin-top: 20px;
+}
+#panel {
+  margin: 25px;
+}
+.btns_formulario {
+  margin: 20px 0px 10px 185px;
 }

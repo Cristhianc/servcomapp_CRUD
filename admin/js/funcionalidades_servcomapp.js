@@ -13,16 +13,16 @@ $(document).ready(function(){
       $("#us_carrera").remove();
       $("#form_usuarios").append(
         '<div class="form-group" id="us_facultad">' +
-          '<label for="" class="col-md-3 control-label">Facultad (*):</label>' +
-          '<div class="col-md-4">' +
+          '<label for="" class="col-md-4 control-label">Facultad (*):</label>' +
+          '<div class="col-md-5">' +
             '<input type="email" class="form-control" id="">' +
           '</div>' +
         '</div>'
       );
       $("#form_usuarios").append(
         '<div class="form-group" id="us_oficina">' +
-          '<label for="" class="col-md-3 control-label">Oficina (*):</label>' +
-          '<div class="col-md-4">' +
+          '<label for="" class="col-md-4 control-label">Oficina (*):</label>' +
+          '<div class="col-md-5">' +
             '<input type="email" class="form-control" id="">' +
           '</div>' +
         '</div>'
@@ -40,8 +40,8 @@ $(document).ready(function(){
       $("#us_oficina").remove();
       $("#form_usuarios").append(
         '<div class="form-group" id="us_carrera">' +
-          '<label for="" class="col-md-3 control-label">No Carrera (*):</label>' +
-          '<div class="col-md-4">' +
+          '<label for="" class="col-md-4 control-label">No Carrera (*):</label>' +
+          '<div class="col-md-5">' +
             '<input type="email" class="form-control" id="">' +
           '</div>' +
         '</div>'
