@@ -63,6 +63,9 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
       <!-- Fila del contenido de los Usuarios -->
       <div class="row">
         <div class="col-md-5">
+          <div id="alerta_usuarios">
+
+          </div>
           <!-- Panel de Usuario-->
           <div class="panel panel-primary" id="panel">
             <div class="panel-heading">
@@ -83,51 +86,82 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
               <!-- /Botones del tipo radio para seleccionar el tipo de usuario -->
 
               <!-- Formulario de Usuarios-->
-              <form class="form-horizontal" id="form_usuarios">
+              <form class="form-horizontal" id="form_estudiante" method="post">
                 <div class="form-group" id="us_nombre">
                   <label for="" class="col-md-4 control-label">Nombre (*):</label>
                   <div class="col-md-5">
-                    <input type="email" class="form-control" id="">
+                    <input type="text" class="form-control" name="us_nom" required>
                   </div>
                 </div>
                 <div class="form-group" id="us_apellido">
                   <label for="" class="col-md-4 control-label">Apellido (*):</label>
                   <div class="col-md-5">
-                    <input type="email" class="form-control" id="">
+                    <input type="text" class="form-control" name="us_ape" required>
                   </div>
                 </div>
                 <div class="form-group" id="us_correo">
                   <label for="" class="col-md-4 control-label">Correo (*):</label>
                   <div class="col-md-5">
-                    <input type="email" class="form-control" id="" placeholder="ejemplo@gmail.com">
+                    <input type="email" class="form-control" name="us_corr" placeholder="ejemplo@gmail.com" required>
                   </div>
                 </div>
                 <div class="form-group" id="us_cedula">
                   <label for="" class="col-md-4 control-label">Cedula (*):</label>
                   <div class="col-md-5">
-                    <input type="email" class="form-control" id="" placeholder="Ej.: 20.230.455">
+                    <input type="text" class="form-control" name="us_ced" placeholder="Ej.: 20.230.455" required>
                   </div>
                 </div>
                 <div class="form-group" id="us_telefono">
                   <label for="" class="col-md-4 control-label">Telefono:</label>
                   <div class="col-md-5">
-                    <input type="email" class="form-control" id="" placeholder="Ej.: 0412-3406089">
+                    <input type="text" class="form-control" name="us_tel" placeholder="Ej.: 0412-3406089">
+                  </div>
+                </div>
+                <div class="form-group" id="us_clave">
+                  <label for="" class="col-md-4 control-label">Clave (*):</label>
+                  <div class="col-md-5">
+                    <input type="text" class="form-control" name="us_cla" placeholder="" required>
                   </div>
                 </div>
                 <div class="form-group" id="us_carrera">
                   <label for="" class="col-md-4 control-label">Carrera (*):</label>
                   <div class="col-md-5">
-                    <input type="email" class="form-control" id="">
+                    <select class="form-control" name="us_carr" required>
+                      <option value=""></option>
+                      <!-- Facultad de Ingenieria -->
+                      <option value="arquitectura">Arquitectura</option>
+                      <option value="i_computacion">Ing. en Computacion</option>
+                      <option value="i_civil">Ing. Civil</option>
+                      <option value="i_industrial">Ing. Industrial</option>
+                      <option value="i_electronica">Ing. Electronica</option>
+                      <option value="i_mecanica">Ing. Mecanica</option>
+                      <!-- Facultad de Ciencias Sociales -->
+                      <option value="a_empresas">Adm. de Empresas</option>
+                      <option value="a_publica">Adm. Publica</option>
+                      <option value="c_publica">Cont. Publica</option>
+                      <option value="mercadeo">Mercadeo</option>
+                      <option value="r_industriales">Rel. Industriales</option>
+                      <!-- Facultad de Ciencias de la Educacion -->
+                      <option value="informatica">Informatica</option>
+                      <option value="integral">Integral</option>
+                      <option value="preescolar">Preescolar</option>
+                      <!-- Facultad de Ciencias de la Salud -->
+                      <option value="odontologia">Odontologia</option>
+                      <!-- Facultad de Ciencias Politicas y Juridicas -->
+                      <option value="derecho">Derecho</option>
+                    </select>
                   </div>
                 </div>
+                <!-- Grupo de botones del formulario -->
+                <div class="form-group" id="us_botones">
+                  <div class="btns_formulario" id="btns_usuarios">
+                    <button type="submit" class="btn btn-primary" id="us_boton">Enviar</button>
+                    <button type="reset" class="btn btn-primary" id="us_boton">Limpiar</button>
+                  </div>
+                </div>
+                <!-- /Grupo de botones del formulario -->
               </form>
               <!-- /Formulario de Usuarios-->
-              <!-- Grupo de botones del formulario -->
-              <div class="btns_formulario">
-                <button type="button" class="btn btn-primary">Enviar</button>
-                <button type="button" class="btn btn-primary">Limpiar</button>
-              </div>
-              <!-- /Grupo de botones del formulario -->
             </div>
           </div>
           <!-- /Panel de Usuario-->
@@ -233,14 +267,16 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
                     <input type="email" class="form-control" id="">
                   </div>
                 </div>
+                <!-- Grupo de botones del formulario -->
+                <div class="form-group" id="tut_botones">
+                  <div class="btns_formulario" id="btns_usuarios">
+                    <button type="button" class="btn btn-primary" id="tut_boton">Enviar</button>
+                    <button type="button" class="btn btn-primary" id="tut_boton">Limpiar</button>
+                  </div>
+                </div>
+                <!-- /Grupo de botones del formulario -->
               </form>
               <!-- /Formulario de Tutores-->
-              <!-- Grupo de botones del formulario -->
-              <div class="btns_formulario">
-                <button type="button" class="btn btn-primary">Enviar</button>
-                <button type="button" class="btn btn-primary">Limpiar</button>
-              </div>
-              <!-- /Grupo de botones del formulario -->
             </div>
           </div>
 
@@ -301,14 +337,16 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
                     <input type="email" class="form-control" id="" placeholder="Ej.: www.paginaweb.com">
                   </div>
                 </div>
+                <!-- Grupo de botones del formulario -->
+                <div class="form-group" id="inst_botones">
+                  <div class="btns_formulario" id="btns_usuarios">
+                    <button type="button" class="btn btn-primary" id="inst_boton">Enviar</button>
+                    <button type="button" class="btn btn-primary" id="inst_boton">Limpiar</button>
+                  </div>
+                </div>
+                <!-- /Grupo de botones del formulario -->
               </form>
               <!-- /Formulario de Instituciones-->
-              <!-- Grupo de botones del formulario -->
-              <div class="btns_formulario">
-                <button type="button" class="btn btn-primary">Enviar</button>
-                <button type="button" class="btn btn-primary">Limpiar</button>
-              </div>
-              <!-- /Grupo de botones del formulario -->
             </div>
           </div>
 

@@ -113,6 +113,12 @@ class servcomapp_crud {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes\class-servcomapp-crud-i18n.php';
 
 		/**
+		 * La clase responsable de definir la coneccion a la base de datos y las
+		 * consultas respectivas de leer, modificar, mostrar y borrar.
+		 */
+		/*require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes\class-servcomapp-crud-bdd.php';*/
+
+		/**
 		 * La clase responsable de definir todas las acciones que ocurren en la area
 		 * de administracion.
 		 */
