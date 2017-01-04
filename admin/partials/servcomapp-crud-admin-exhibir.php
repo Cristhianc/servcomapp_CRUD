@@ -117,6 +117,12 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
                     <input type="text" class="form-control" name="us_tel" placeholder="Ej.: 0412-3406089">
                   </div>
                 </div>
+                <div class="form-group" id="us_apodo">
+                  <label for="" class="col-md-4 control-label">Usuario (*):</label>
+                  <div class="col-md-5">
+                    <input type="text" class="form-control" name="us_apo" placeholder="Nombre del Usuario" required>
+                  </div>
+                </div>
                 <div class="form-group" id="us_clave">
                   <label for="" class="col-md-4 control-label">Clave (*):</label>
                   <div class="col-md-5">

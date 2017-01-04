@@ -72,7 +72,8 @@
     public function seleccionar($query) {
         $filas = array();
         $resultado = $this -> consultar($query);
-        if($result === false) {
+        var_dump($resultado);
+        if($resultado === false) {
             return false;
         }
         while ($fila = $resultado -> fetch_assoc()) {

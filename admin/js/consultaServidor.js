@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  
+
   /* Agrega al evento submit una funcion que consulta de manera asincrona al
    * servidor mediante AJAX, pasandole los parametros necesarios para esta
    * consulta. Ademas agrega tres funciones adicionales que se van a ejecutar
