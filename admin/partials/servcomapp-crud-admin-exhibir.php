@@ -62,7 +62,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
     <div role="tabpanel" class="tab-pane active" id="usuarios">
       <!-- Fila del contenido de los Usuarios -->
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-11">
           <div id="alerta_usuarios">
 
           </div>
@@ -131,7 +131,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
                 </div>
                 <div class="form-group" id="us_carrera">
                   <label for="" class="col-md-4 control-label">Carrera (*):</label>
-                  <div class="col-md-5">
+                  <div class="col-md-11">
                     <select class="form-control" name="us_carr" required>
                       <option value=""></option>
                       <!-- Facultad de Ingenieria -->
@@ -229,7 +229,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
     <div role="tabpanel" class="tab-pane" id="tutores">
       <!-- Fila del contenido de Tutores-->
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-12">
           <div class="panel panel-primary" id="panel">
             <div class="panel-heading">
               <h2 class="titulo_crear">Crear Tutor</h2>
@@ -311,7 +311,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
     <div role="tabpanel" class="tab-pane" id="instituciones">
       <!-- Fila del contenido de las Instituciones-->
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-11">
           <div class="panel panel-primary" id="panel">
             <div class="panel-heading">
               <h2 class="titulo_crear">Crear Institucion</h2>

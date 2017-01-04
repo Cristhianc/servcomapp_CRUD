@@ -25,6 +25,10 @@ function insertar_Estudiante() {
     $clave = $bdd -> citar_escapar($_POST['us_cla']);
     $carrera = $bdd -> citar_escapar($_POST['us_carr']);
     //$carrera = $_POST['us_carr'];
+      
+    
+    $mydate = date_default_timezone_set('UTC');
+    var_dump($mydate);
 
     /* Inserta en la base de datos el nuevo usuario con todos los parametros
      * necesarios para la consulta. Para mas informacion, consultar la tabla
