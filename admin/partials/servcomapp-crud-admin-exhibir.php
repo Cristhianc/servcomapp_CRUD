@@ -69,7 +69,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
           <!-- Panel de Usuario-->
           <div class="panel panel-primary" id="panel">
             <div class="panel-heading">
-              <h2 class="titulo_crear">Crear Usuario</h2>
+              <h2 class="titulo_usuario">Crear Usuario</h2>
             </div>
             <div class="panel-body">
               <!-- Botones del tipo radio para seleccionar el tipo de usuario -->
@@ -86,53 +86,53 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
               <!-- /Botones del tipo radio para seleccionar el tipo de usuario -->
 
               <!-- Formulario de Usuarios-->
-              <form class="form-horizontal" id="form_estudiante" method="post">
+              <form class="form-horizontal" id="form_usuarios" method="post">
                 <div class="form-group" id="us_nombre">
-                  <label for="" class="col-md-4 control-label">Nombre (*):</label>
+                  <label for="us_nom" class="col-md-4 control-label">Nombre (*):</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" name="us_nom" required>
+                    <input type="text" class="form-control" name="us_nom" id="us_nom" required>
                   </div>
                 </div>
                 <div class="form-group" id="us_apellido">
-                  <label for="" class="col-md-4 control-label">Apellido (*):</label>
+                  <label for="us_ape" class="col-md-4 control-label">Apellido (*):</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" name="us_ape" required>
+                    <input type="text" class="form-control" name="us_ape" id="us_ape" required>
                   </div>
                 </div>
                 <div class="form-group" id="us_correo">
-                  <label for="" class="col-md-4 control-label">Correo (*):</label>
+                  <label for="us_corr" class="col-md-4 control-label">Correo (*):</label>
                   <div class="col-md-5">
-                    <input type="email" class="form-control" name="us_corr" placeholder="ejemplo@gmail.com" required>
+                    <input type="email" class="form-control" name="us_corr" id="us_corr" placeholder="ejemplo@gmail.com" required>
                   </div>
                 </div>
                 <div class="form-group" id="us_cedula">
-                  <label for="" class="col-md-4 control-label">Cedula (*):</label>
+                  <label for="us_ced" class="col-md-4 control-label">Cedula (*):</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" name="us_ced" placeholder="Ej.: 20.230.455" required>
+                    <input type="text" class="form-control" name="us_ced" id="us_ced" placeholder="Ej.: 20.230.455" required>
                   </div>
                 </div>
                 <div class="form-group" id="us_telefono">
-                  <label for="" class="col-md-4 control-label">Telefono:</label>
+                  <label for="us_tel" class="col-md-4 control-label">Telefono:</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" name="us_tel" placeholder="Ej.: 0412-3406089">
+                    <input type="text" class="form-control" name="us_tel" id="us_tel" placeholder="Ej.: 0412-3406089">
                   </div>
                 </div>
                 <div class="form-group" id="us_apodo">
-                  <label for="" class="col-md-4 control-label">Usuario (*):</label>
+                  <label for="us_apo" class="col-md-4 control-label">Usuario (*):</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" name="us_apo" placeholder="Nombre del Usuario" required>
+                    <input type="text" class="form-control" name="us_apo" id="us_apo" placeholder="Nombre del Usuario" required>
                   </div>
                 </div>
                 <div class="form-group" id="us_clave">
-                  <label for="" class="col-md-4 control-label">Clave (*):</label>
+                  <label for="us_cla" class="col-md-4 control-label">Clave (*):</label>
                   <div class="col-md-5">
-                    <input type="text" class="form-control" name="us_cla" placeholder="" required>
+                    <input type="text" class="form-control" name="us_cla" id="us_cla" placeholder="" required>
                   </div>
                 </div>
                 <div class="form-group" id="us_carrera">
-                  <label for="" class="col-md-4 control-label">Carrera (*):</label>
-                  <div class="col-md-11">
-                    <select class="form-control" name="us_carr" required>
+                  <label for="us_carr" class="col-md-4 control-label">Carrera (*):</label>
+                  <div class="col-md-5">
+                    <select class="form-control" name="us_carr" id="us_carr" required>
                       <option value=""></option>
                       <!-- Facultad de Ingenieria -->
                       <option value="arquitectura">Arquitectura</option>
@@ -161,8 +161,8 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
                 <!-- Grupo de botones del formulario -->
                 <div class="form-group" id="us_botones">
                   <div class="btns_formulario" id="btns_usuarios">
-                    <button type="submit" class="btn btn-primary" id="us_boton">Enviar</button>
-                    <button type="reset" class="btn btn-primary" id="us_boton">Limpiar</button>
+                    <button type="submit" class="btn btn-primary" id="btn_us_enviar">Enviar</button>
+                    <button type="reset" class="btn btn-primary" id="btn_us_limpiar">Limpiar</button>
                   </div>
                 </div>
                 <!-- /Grupo de botones del formulario -->
@@ -172,15 +172,27 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
           </div>
           <!-- /Panel de Usuario-->
         </div>
-        <div class="col-md-7">
+        <div class="col-md-12" id="area_tabla_tu">
+          <div class="btn-group" id="rbtn_usuarios" data-toggle="buttons">
+            <label class="btn btn-primary active" id="rbtn_tu_estud">
+              <input type="radio" name="options" autocomplete="off">
+              Mostrar Estudiantes
+            </label>
+            <label class="btn btn-primary" id="rbtn_tu_coord">
+              <input type="radio" name="options" autocomplete="off">
+              Mostrar Coordinadores
+            </label>
+          </div>
           <h2>Registros de los Usuarios</h2>
-          <table class="table table-hover">
+          <table class="table table-hover" id="tabla_usuarios">
             <tr>
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Correo</th>
               <th>Cedula</th>
               <th>Telefono</th>
+              <th>Usuario</th>
+              <th>Clave</th>
               <th>Carrera</th>
               <th>Editar</th>
               <th>Borrar</th>
@@ -232,7 +244,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
         <div class="col-md-12">
           <div class="panel panel-primary" id="panel">
             <div class="panel-heading">
-              <h2 class="titulo_crear">Crear Tutor</h2>
+              <h2 class="titulo_tutor">Crear Tutor</h2>
             </div>
             <div class="panel-body">
               <!-- Formulario de Tutores-->
@@ -314,7 +326,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
         <div class="col-md-11">
           <div class="panel panel-primary" id="panel">
             <div class="panel-heading">
-              <h2 class="titulo_crear">Crear Institucion</h2>
+              <h2 class="titulo_institucion">Crear Institucion</h2>
             </div>
             <div class="panel-body">
               <!-- Formulario de Instituciones-->

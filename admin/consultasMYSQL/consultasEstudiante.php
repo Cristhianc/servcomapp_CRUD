@@ -1,9 +1,8 @@
 <?php
-/* Solicita la clase que maneja todas las operaciones generales de la base de
- * datos. */
+// Solicita la clase que maneja todas las consultas SQL de la base de datos.
 require_once( dirname(__FILE__) . '/class-servcomapp-crud-bdd.php' );
 
-// Funcion que realiza la insercion de un nuevo estudiante a la base de datos
+// Procedimiento que realiza la insercion de un nuevo estudiante a la base de datos
 function insertar_Estudiante() {
 
   /* Si el metodo de peticion es POST y su contenido no esta vacio, entonces
@@ -13,6 +12,7 @@ function insertar_Estudiante() {
     /* Crea una nuevo objeto que realizara todas las operaciones pertinentes a
      * la base de datos.*/
     $bdd = new servcomapp_crud_bdd();
+
     /* Escapa caracteres especiales de la entrada que haya ingresado el usuario
      * para evitar cualquier inyeccion de SQL y devuelve el valor dentro de
      * comillas individuales.*/
@@ -24,11 +24,9 @@ function insertar_Estudiante() {
     $apodo = $bdd -> citar_escapar($_POST['us_apo']);
     $clave = $bdd -> citar_escapar($_POST['us_cla']);
     $carrera = $bdd -> citar_escapar($_POST['us_carr']);
-    //$carrera = $_POST['us_carr'];
-      
-    
-    $mydate = date_default_timezone_set('UTC');
-    var_dump($mydate);
+
+    // Coloca el horario actual de caracas
+    date_default_timezone_set('America/Caracas');
 
     /* Inserta en la base de datos el nuevo usuario con todos los parametros
      * necesarios para la consulta. Para mas informacion, consultar la tabla
@@ -47,7 +45,12 @@ function insertar_Estudiante() {
      *
      * Instruccion tipo SELECT
      */
-    $usuario_id = $bdd -> seleccionar("SELECT us_id FROM sc_usuarios WHERE us_apodo = " . $apodo);
+    if ( $resultado !== false ) {
+       $usuario_id = $bdd -> seleccionar("SELECT us_id FROM sc_usuarios WHERE us_apodo = " . $apodo);
+    } else {
+       echo "false";
+       exit();
+    }
 
     /* Inserta en la base de datos la nueva persona con todos los parametros
      * necesarios para la consulta. Para mas informacion, consultar la tabla
@@ -55,10 +58,16 @@ function insertar_Estudiante() {
      *
      * Instruccion tipo INSERT
      */
-    $resultado = $bdd -> consultar("INSERT INTO" . " sc_personas ( sc_usuarios_us_id , " .
-      " pe_cedula , pe_nombre , pe_apellido , pe_correo , pe_telefono ) VALUES ( " .
-      $usuario_id[0]['us_id'] . " , " . $cedula . " , " . $nombre . " , " . $apellido . " , " . $correo .
-      " , " . $telefono . " )");
+     if ( $usuario_id !== false ) {
+       $resultado = $bdd -> consultar("INSERT INTO" . " sc_personas ( sc_usuarios_us_id , " .
+         " pe_cedula , pe_nombre , pe_apellido , pe_correo , pe_telefono ) VALUES ( " .
+         $usuario_id[0]['us_id'] . " , " . $cedula . " , " . $nombre . " , " . $apellido . " , " . $correo .
+         " , " . $telefono . " )");
+     } else {
+       echo "false";
+       exit();
+     }
+
 
     /* Busca el id de la carrera que sea igual al nombre de esta pasado
      * por el usuario. Esto se lleva a cabo para poder insertar un nuevo
@@ -66,7 +75,12 @@ function insertar_Estudiante() {
      *
      * Instruccion tipo SELECT
      */
-    $carrera_id = $bdd -> seleccionar("SELECT ca_id FROM sc_carreras WHERE ca_nombre = " . $carrera);
+     if ( $resultado !== false ) {
+       $carrera_id = $bdd -> seleccionar("SELECT ca_id FROM sc_carreras WHERE ca_nombre = " . $carrera);
+     } else {
+       echo "false";
+       exit();
+     }
 
     /* Inserta en la base de datos el nuevo estudiante con todos los parametros
      * necesarios para la consulta. Para mas informacion, consultar la tabla
@@ -74,13 +88,81 @@ function insertar_Estudiante() {
      *
      * Instruccion tipo INSERT
      */
-    $resultado = $bdd -> consultar("INSERT INTO" . " sc_estudiantes ( " .
-      "sc_personas_pe_cedula , sc_carerras_ca_id ) VALUES ( " . $cedula . " , " .
-      $carrera_id[0]['ca_id'] .  " )");
+     if ( $carrera_id !== false ) {
+       $resultado = $bdd -> consultar("INSERT INTO" . " sc_estudiantes ( " .
+         "sc_personas_pe_cedula , sc_carerras_ca_id ) VALUES ( " . $cedula . " , " .
+         $carrera_id[0]['ca_id'] .  " )");
+     } else {
+       echo "false";
+       exit();
+     }
 
     //Cierra la conexion a la base de datos.
     $bdd -> cerrar_conexion();
   }
 }
 
-insertar_Estudiante();
+/* Procedimiento que recupera todos los registros existentes de un estudiante
+ * en la base de datos.
+ */
+function seleccionar_Estudiantes() {
+
+  /* Crea una nuevo objeto que realizara todas las operaciones pertinentes a
+   * la base de datos.*/
+  $bdd = new servcomapp_crud_bdd();
+
+  /* Realiza una consulta en la base de datos para extraer todos los datos
+   * correspondientes a los usuarios tipo estudiante, uniendo varias tablas de
+   * la base de datos, pero solo seleccionando ciertas columnas de estas para
+   * mostrar en la tabla de estudiantes del area de los usuarios.
+   */
+  $resultado = $bdd -> seleccionar("SELECT pe_nombre, pe_apellido, pe_correo, ".
+    "pe_cedula, pe_telefono, us_apodo, us_clave, ca_nombre " .
+    "FROM sc_estudiantes est " .
+    "INNER JOIN sc_personas per " .
+    "ON est.sc_personas_pe_cedula = per.pe_cedula " .
+    "INNER JOIN sc_usuarios users " .
+    "ON per.sc_usuarios_us_id = users.us_id " .
+    "INNER JOIN sc_carreras carr " .
+    "ON est.sc_carerras_ca_id = carr.ca_id"
+  );
+
+  /* Luego transforma el resultado de la consulta en un archivo .json y lo
+   * devuelve como parte de la respuesta que da el servidor.
+   */
+  $resultado = json_encode($resultado);
+  echo $resultado;
+}
+
+/* Verifica que tipo de consulta se envio y ejecuta su caso correspondiente.
+ * Aqui deberian ir todas las llamadas a las funciones respectivas de cada tipo
+ * de consulta.
+ */
+switch ($_POST['tipo_cons']) {
+
+  // Insertar
+  case 'insertar':
+    insertar_Estudiante();
+    echo "true";
+    break;
+
+  // Seleccionar
+  case 'seleccionar':
+    seleccionar_Estudiantes();
+    break;
+
+  // Editar
+  case 'editar':
+    # code...
+    break;
+
+  // Eliminar
+  case 'eliminar':
+    # code...
+    break;
+
+  // Accion por defecto
+  default:
+    # code...
+    break;
+}

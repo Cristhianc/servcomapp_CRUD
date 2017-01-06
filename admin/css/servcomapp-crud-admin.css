@@ -21,7 +21,8 @@
   margin:30px 0px 0px 30px;
 }
 /*Titulos de los formularios*/
-.titulo_crear {
+.titulo_usuario, .titulo_tutor,
+.titulo_institucion {
   margin-left: 160px;
 }
 /*Formulario de tutores e instituciones*/
@@ -31,7 +32,8 @@
 #panel {
   margin: 25px;
 }
-#us_boton, #tut_boton, #inst_boton {
+#btn_us_enviar, #btn_us_limpiar,
+#inst_boton, #tut_boton {
   margin: 5px;
 }
 #alerta_usuarios {

@@ -97,18 +97,18 @@ class servcomapp_crud_admin {
 			'3.1.1',
 			true
 		);
-		wp_enqueue_script( 'servcomapp-formulariosGUI',
- 			plugin_dir_url( __FILE__ ) . 'js/formulariosGUI.js',
- 			array('jquery'),
- 			$this->version,
- 			true
- 		);
-		wp_enqueue_script( 'servcomapp-consultaServidor',
-			plugin_dir_url( __FILE__ ) . 'js/consultaServidor.js',
+		wp_enqueue_script( 'servcomapp-areaUsuarios',
+			plugin_dir_url( __FILE__ ) . 'js/areaUsuarios.js',
 			array('jquery'),
 			$this->version,
 			true
 		);
+		wp_enqueue_script( 'servcomapp-cargarEventos',
+ 			plugin_dir_url( __FILE__ ) . 'js/cargarEventos.js',
+ 			array('jquery'),
+ 			$this->version,
+ 			true
+ 		);
 		wp_enqueue_script( 'bootstrap',
 			plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js',
 			array(),
