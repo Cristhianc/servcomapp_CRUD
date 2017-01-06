@@ -90,7 +90,7 @@ function insertar_Estudiante() {
      */
      if ( $carrera_id !== false ) {
        $resultado = $bdd -> consultar("INSERT INTO" . " sc_estudiantes ( " .
-         "sc_personas_pe_cedula , sc_carerras_ca_id ) VALUES ( " . $cedula . " , " .
+         "sc_personas_pe_cedula , sc_carreras_ca_id ) VALUES ( " . $cedula . " , " .
          $carrera_id[0]['ca_id'] .  " )");
      } else {
        echo "false";
@@ -124,7 +124,7 @@ function seleccionar_Estudiantes() {
     "INNER JOIN sc_usuarios users " .
     "ON per.sc_usuarios_us_id = users.us_id " .
     "INNER JOIN sc_carreras carr " .
-    "ON est.sc_carerras_ca_id = carr.ca_id"
+    "ON est.sc_carreras_ca_id = carr.ca_id"
   );
 
   /* Luego transforma el resultado de la consulta en un archivo .json y lo

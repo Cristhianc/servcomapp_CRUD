@@ -279,6 +279,7 @@ function activarForm_estudiante() {
             '<option value="i_industrial">Ing. Industrial</option>' +
             '<option value="i_electronica">Ing. Electronica</option>' +
             '<option value="i_mecanica">Ing. Mecanica</option>' +
+            '<option value="i_telecomunicacion">Ing. en Telecomunicacion</option>' +
             '<option value="a_empresas">Adm. de Empresas</option>' +
             '<option value="a_publica">Adm. Publica</option>' +
             '<option value="c_publica">Cont. Publica</option>' +
