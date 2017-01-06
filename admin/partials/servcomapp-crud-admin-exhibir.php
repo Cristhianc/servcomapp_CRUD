@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 <!-- Este archivo deberia consistir principalmente de HTML con un poco de PHP. -->
 <div class="wrap">
   <h1 id="servcomapp_titulo">
-    Pagina administrativa de los datos del sistema de informacion
+    Página administrativa de los datos del sistema de información
   </h1>
   <!-- Fila que contiene las pestañas de la interfaz -->
   <div class="row" id="cab_servcomapp">
@@ -62,7 +62,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
     <div role="tabpanel" class="tab-pane active" id="usuarios">
       <!-- Fila del contenido de los Usuarios -->
       <div class="row">
-        <div class="col-md-11">
+        <div class="col-md-12">
           <div id="alerta_usuarios">
 
           </div>
@@ -173,7 +173,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
           </div>
           <!-- /Panel de Usuario-->
         </div>
-        <div class="col-md-12" id="area_tabla_tu">
+        <div class="col-md-12 registro table-responsive" id="area_tabla_tu">
           <div class="btn-group" id="rbtn_usuarios" data-toggle="buttons">
             <label class="btn btn-primary active" id="rbtn_tu_estud">
               <input type="radio" name="options" autocomplete="off">
@@ -216,19 +216,19 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
             Agregar
           </button-->
           <div class="well center-block" id="bloque_programas">
-            <button type="button" class="btn btn-primary btn-lg btn-block">
+            <button type="button" class="btn btn-primary btn-lg btn-block btn-edit">
               Programas de Servicio Comunitario de la Facultad de Ingeniería
             </button>
-            <button type="button" class="btn btn-primary btn-lg btn-block">
+            <button type="button" class="btn btn-primary btn-lg btn-block btn-edit">
               Programas de Servicio Comunitario de la Facultad de Ciencias Sociales
             </button>
-            <button type="button" class="btn btn-primary btn-lg btn-block">
+            <button type="button" class="btn btn-primary btn-lg btn-block btn-edit">
               Programas de Servicio Comunitario de la Facultad de Ciencias de la Educación
             </button>
-            <button type="button" class="btn btn-primary btn-lg btn-block">
+            <button type="button" class="btn btn-primary btn-lg btn-block btn-edit">
               Programas de Servicio Comunitario de la Facultad de Ciencias de la Salud
             </button>
-            <button type="button" class="btn btn-primary btn-lg btn-block">
+            <button type="button" class="btn btn-primary btn-lg btn-block btn-edit">
               Programas de Servicio Comunitario de la Facultad de Ciencias Jurídicas y Políticas
             </button>
           </div>
@@ -300,7 +300,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
           </div>
 
         </div>
-        <div class="col-md-7">
+        <div class="col-md-12 registro">
           <h2>Registros de los Tutores</h2>
           <table class="table table-hover">
             <tr>
@@ -324,7 +324,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
     <div role="tabpanel" class="tab-pane" id="instituciones">
       <!-- Fila del contenido de las Instituciones-->
       <div class="row">
-        <div class="col-md-11">
+        <div class="col-md-12">
           <div class="panel panel-primary" id="panel">
             <div class="panel-heading">
               <h2 class="titulo_institucion">Crear Institucion</h2>
@@ -371,7 +371,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 
         </div>
-        <div class="col-md-7">
+        <div class="col-md-12 registro">
           <h2>Registros de las Instituciones</h2>
           <table class="table table-hover">
             <tr>
