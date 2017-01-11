@@ -84,7 +84,7 @@ $( document ).ready( function(){
     /* Llamada al procedimiento que inserta o edita los datos, pasando la data
      * del formulario.
      */
-    insertarEditar_usuarios( data );
+    insertar_usuarios( data );
   });
 
   // FIN DEL AREA DE LOS EVENTOS PARA EL FORMULARIO DE LOS USUARIOS

@@ -3,11 +3,11 @@
 
 // AREA DE LAS DIFERENTES CONSULTAS CON AJAX
 
-/* Procedimiento que se encarga de insertar o editar un usuario, ya sea
+/* Procedimiento que se encarga de insertar un usuario, ya sea
  * coordinador o estudiante, pasandole toda la data introducida por el usuario
  * en el formulario de usuarios.
  */
-function insertarEditar_usuarios( data ) {
+function insertar_usuarios( data ) {
 
   /**
    * @var    dir_url       La ubicacion del archivo .php que procesara la
@@ -30,26 +30,12 @@ function insertarEditar_usuarios( data ) {
     dir_url = "../wp-content/mu-plugins/servcomapp_CRUD/admin/consultasMYSQL/consultasCoordinador.php";
   }
 
-  /* Switch que se encarga de agregar el tipo de consulta que se va a realizar
-   * en el archivo .php respectivo. De esta manera se logra llamar solo a la
-   * funcion deseada dentro de varias existentes en tal archivo. El nombre de
-   * la variable que se pasa por el metodo post para determinar el tipo de
-   * consulta se llama 'tipo_cons'.
+  /* Agrega el tipo de consulta que se va a realizar en el archivo .php
+   * respectivo. De esta manera se logra llamar solo a la funcion de insercion.
+   * El nombre de la variable que se pasa por el metodo post para determinar el
+   * tipo de consulta se llama 'tipo_cons'.
    */
-  switch ( sessionStorage.tipo_consulta ) {
-
-    // Caso para el tipo de consulta Insertar
-    case "insertar":
-      data.push({ name: 'tipo_cons', value: 'insertar' });
-      break;
-
-    // Caso para el tipo de consulta Editar
-    case "editar":
-      data.push({ name: 'tipo_cons', value: 'editar' });
-      break;
-    default:
-      break;
-  }
+   data.push({ name: 'tipo_cons', value: 'insertar' });
 
   /* Mediante AJAX y pasandole los parametros correspondiente a esta funcion,
    * se logra enviar todos los datos necesarios para que el servidor procese
@@ -106,7 +92,7 @@ function insertarEditar_usuarios( data ) {
            '</div>'
          );
          if ( sessionStorage.rboton_tu_coord === "true" ) {
-           $("#tabla_usuarios").append(
+           $( "#tabla_usuarios" ).append(
              '<tr>' +
                '<th>' + data[0]["value"] + '</th>' +
                '<th>' + data[1]["value"] + '</th>' +
@@ -150,7 +136,7 @@ function insertarEditar_usuarios( data ) {
        }
      }
   })
-  .fail( function( xhr, status, error ){
+  .fail( function( xhr, status, error ) {
 
     /* Funcion que se ejecuta si la consulta no fue exitosa. Tambien indica el
      * tipo de usuario que no pudo ser registrado. Imprime el estado, error e
@@ -169,7 +155,7 @@ function insertarEditar_usuarios( data ) {
  * registros existentes del tipo de usuario que se haya indicado y ademas, los
  * carga en la tabla de usuarios.
  */
-function seleccionar_usuarios(tipoUsuario_tabla) {
+function seleccionar_usuarios( tipoUsuario_tabla ) {
 
   /**
    * @var    dir_url       La ubicacion del archivo .php que procesara la
@@ -213,7 +199,7 @@ function seleccionar_usuarios(tipoUsuario_tabla) {
       $( "#tabla_usuarios" ).append(
         '<tr id="tu_f' + i + '"></tr>'
       );
-      for (registro in respuesta[i]) {
+      for ( registro in respuesta[i] ) {
         $( "#tu_f" + i ).append(
           '<th>' + respuesta[i][registro] + '</th>'
         );
@@ -263,7 +249,7 @@ function activarForm_estudiante() {
    * otra vez. Luego actualiza el estado de los botones radio y, el tipo de
    * usuario que se procesara por el momento.
    */
-  if (sessionStorage.rboton_estud === "false") {
+  if ( sessionStorage.rboton_estud === "false" ) {
     $( "#us_facultad" ).remove();
     $( "#us_oficina" ).remove();
     $( "#us_botones" ).remove();
@@ -365,7 +351,7 @@ function activarForm_coordinador() {
  */
 function activarTabla_estudiante() {
   if ( sessionStorage.rboton_tu_estud === "false" ) {
-    $("#tabla_usuarios").remove();
+    $( "#tabla_usuarios" ).remove();
     $( "#area_tabla_tu" ).append(
       '<table class="table table-hover" id="tabla_usuarios">' +
         '<tr>' +
@@ -382,7 +368,7 @@ function activarTabla_estudiante() {
         '</tr>' +
       '</table>'
     );
-    seleccionar_usuarios("estudiante");
+    seleccionar_usuarios( "estudiante" );
     sessionStorage.rboton_tu_coord = "false";
     sessionStorage.rboton_tu_estud = "true";
   }
@@ -393,7 +379,7 @@ function activarTabla_estudiante() {
  */
 function activarTabla_coordinador() {
   if ( sessionStorage.rboton_tu_coord === "false" ) {
-    $("#tabla_usuarios").remove();
+    $( "#tabla_usuarios" ).remove();
     $( "#area_tabla_tu" ).append(
       '<table class="table table-hover" id="tabla_usuarios">' +
         '<tr>' +
@@ -411,7 +397,7 @@ function activarTabla_coordinador() {
         '</tr>' +
       '</table>'
     );
-    seleccionar_usuarios("coordinador");
+    seleccionar_usuarios( "coordinador" );
     sessionStorage.rboton_tu_coord = "true";
     sessionStorage.rboton_tu_estud = "false";
   }
