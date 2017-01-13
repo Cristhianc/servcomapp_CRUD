@@ -206,7 +206,7 @@ function seleccionar_usuarios( tipoUsuario_tabla ) {
       }
       $( "#" + respuesta[i].us_apodo ).append(
         '<th>' +
-          '<button type="button" class="btn btn-default btn-sm" onclick="element();">' +
+          '<button type="button" class="btn btn-default btn-sm" onclick="element(this); ">' +
             '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
           '</button>' +
         '</th>' +
@@ -404,8 +404,49 @@ function activarTabla_coordinador() {
 }
 
 
-function element(){
+// Funcion que realiza la obtención de datos dependiendo del sessionStorage.
+// Estos datos serán pasados a otras funciones para hacer el set a cada input.
+function element(e){
     console.log("Clicking");
+	// Ejemplo de variable sessionStorage.
+	var a = "estudiante";
+	// Obteniendo el id del padre y la fila. Init array vacio para el push de los textos.
+	var fila = $(e).parent().parent();
+	var id_file = fila.attr('id');	
+	var data = [];
+	// 
+	fila.find('th').each (function() {
+		if( sessionStorage.tipo_de_usuario == "estudiante" ){
+			// Imprimiendo el texto
+			console.log($(this).text());
+			if($(this).text() != ""){
+				data.push($(this).text());
+			}
+		}
+	}); 
+	
+	editando_estudiantes(data);
+	// alert("Datos listos para edicion.");
+	// Debugging de arreglo.
+	console.log(data);
+
 }
+
+// Funcion que actualiza el valor de los estudiantes en los formularios.
+// Recibe como parámetro el data (arreglo que tiene los campos)
+// Manda los datos obtenidos a el formulario.
+// Para editar, se cambia el valor del submit.
+function editando_estudiantes(data){
+    $("#us_nom").val(data[0]);
+    $("#us_ape").val(data[1]);
+    $("#us_corr").val(data[2]);
+    $("#us_ced").val(data[3]);
+    $("#us_tel").val(data[4]);
+	$("#us_apo").val(data[5]);
+    $("#us_cla").val(data[6]);
+	$("#us_carr").val(data[7]);
+}
+
+
 
 // FIN DEL AREA DE MANEJO DE LA GUI
