@@ -63,7 +63,7 @@ function insertar_usuarios( data ) {
          );
          if ( sessionStorage.rboton_tu_estud === "true" ) {
            $("#tabla_usuarios").append(
-             '<tr>' +
+             '<tr id="' + data[5]["value"] + '">' +
                '<th>' + data[0]["value"] + '</th>' +
                '<th>' + data[1]["value"] + '</th>' +
                '<th>' + data[2]["value"] + '</th>' +
@@ -93,7 +93,7 @@ function insertar_usuarios( data ) {
          );
          if ( sessionStorage.rboton_tu_coord === "true" ) {
            $( "#tabla_usuarios" ).append(
-             '<tr>' +
+             '<tr id="' + data[5]["value"] + '">' +
                '<th>' + data[0]["value"] + '</th>' +
                '<th>' + data[1]["value"] + '</th>' +
                '<th>' + data[2]["value"] + '</th>' +
@@ -195,17 +195,16 @@ function seleccionar_usuarios( tipoUsuario_tabla ) {
      * de usuarios, asi como los botones de editar y borrar para cada registro.
      */
     respuesta = JSON.parse(respuesta);
-	console.log(respuesta);
     for ( i = 0 ; i < respuesta.length ; i++ ) {
       $( "#tabla_usuarios" ).append(
-        '<tr id="tu_f' + i + '"></tr>'
+        '<tr id="' + respuesta[i].us_apodo + '"></tr>'
       );
       for ( registro in respuesta[i] ) {
-        $( "#tu_f" + i ).append(
+        $( "#" + respuesta[i].us_apodo ).append(
           '<th>' + respuesta[i][registro] + '</th>'
         );
       }
-      $( "#tu_f" + i ).append(
+      $( "#" + respuesta[i].us_apodo ).append(
         '<th>' +
           '<button type="button" class="btn btn-default btn-sm" onclick="element();">' +
             '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
