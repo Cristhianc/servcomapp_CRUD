@@ -195,6 +195,7 @@ function seleccionar_usuarios( tipoUsuario_tabla ) {
      * de usuarios, asi como los botones de editar y borrar para cada registro.
      */
     respuesta = JSON.parse(respuesta);
+	console.log(respuesta);
     for ( i = 0 ; i < respuesta.length ; i++ ) {
       $( "#tabla_usuarios" ).append(
         '<tr id="tu_f' + i + '"></tr>'
@@ -206,7 +207,7 @@ function seleccionar_usuarios( tipoUsuario_tabla ) {
       }
       $( "#tu_f" + i ).append(
         '<th>' +
-          '<button type="button" class="btn btn-default btn-sm">' +
+          '<button type="button" class="btn btn-default btn-sm" onclick="element();">' +
             '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
           '</button>' +
         '</th>' +
@@ -401,6 +402,11 @@ function activarTabla_coordinador() {
     sessionStorage.rboton_tu_coord = "true";
     sessionStorage.rboton_tu_estud = "false";
   }
+}
+
+
+function element(){
+    console.log("Clicking");
 }
 
 // FIN DEL AREA DE MANEJO DE LA GUI
