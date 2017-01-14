@@ -68,6 +68,14 @@ $( document ).ready( function(){
     activarTabla_coordinador();
   });
 
+  // Boton que se encarga de devolver al estado de creacion de un usuario.
+  $( "#btn_agregarUsuario" ).click( function() {
+    if ( sessionStorage.tipo_consulta !== "insertar" ) {
+      sessionStorage.tipo_consulta = "insertar";
+      $( ".titulo_usuario" ).html("Crear Usuario");
+    }
+  });
+
   /* Agrega un evento del tipo submit que se ejecutara al enviar el formulario
    * correctamente para que sea procesado por AJAX y luego por el archivo .php
    * que le corresponda dependiendo del caso.*/

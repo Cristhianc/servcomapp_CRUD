@@ -64,8 +64,10 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
       <div class="row">
         <div class="col-md-12">
           <div id="alerta_usuarios">
-
           </div>
+          <button type="button" class="btn btn-primary" id="btn_agregarUsuario">
+            Agregar Usuario
+          </button>
           <!-- Panel de Usuario-->
           <div class="panel panel-primary" id="panel">
             <div class="panel-heading">
