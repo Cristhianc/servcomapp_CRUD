@@ -217,6 +217,11 @@ function seleccionar_usuarios( tipoUsuario_tabla ) {
         '</th>'
       );
     }
+    if ( sessionStorage.rboton_tu_estud === "true" ) {
+      $( "#rbtn_tu_coord" ).removeAttr( 'disabled' );
+    } else if ( sessionStorage.rboton_tu_coord === "true" ) {
+      $( "#rbtn_tu_estud" ).removeAttr( 'disabled' );
+    }
 
   })
   .fail( function( xhr, status, error ){
@@ -351,6 +356,9 @@ function activarForm_coordinador() {
  */
 function activarTabla_estudiante() {
   if ( sessionStorage.rboton_tu_estud === "false" ) {
+    $( "#rbtn_tu_coord" ).attr( 'disabled' , 'disabled' );
+    sessionStorage.rboton_tu_coord = "false";
+    sessionStorage.rboton_tu_estud = "true";
     $( "#tabla_usuarios" ).remove();
     $( "#area_tabla_tu" ).append(
       '<table class="table table-hover" id="tabla_usuarios">' +
@@ -369,8 +377,6 @@ function activarTabla_estudiante() {
       '</table>'
     );
     seleccionar_usuarios( "estudiante" );
-    sessionStorage.rboton_tu_coord = "false";
-    sessionStorage.rboton_tu_estud = "true";
   }
 }
 
@@ -379,6 +385,9 @@ function activarTabla_estudiante() {
  */
 function activarTabla_coordinador() {
   if ( sessionStorage.rboton_tu_coord === "false" ) {
+    $( "#rbtn_tu_estud" ).attr( 'disabled' , 'disabled' );
+    sessionStorage.rboton_tu_coord = "true";
+    sessionStorage.rboton_tu_estud = "false";
     $( "#tabla_usuarios" ).remove();
     $( "#area_tabla_tu" ).append(
       '<table class="table table-hover" id="tabla_usuarios">' +
@@ -398,8 +407,6 @@ function activarTabla_coordinador() {
       '</table>'
     );
     seleccionar_usuarios( "coordinador" );
-    sessionStorage.rboton_tu_coord = "true";
-    sessionStorage.rboton_tu_estud = "false";
   }
 }
 
@@ -412,9 +419,9 @@ function element(e){
 	var a = "estudiante";
 	// Obteniendo el id del padre y la fila. Init array vacio para el push de los textos.
 	var fila = $(e).parent().parent();
-	var id_file = fila.attr('id');	
+	var id_file = fila.attr('id');
 	var data = [];
-	// 
+	//
 	fila.find('th').each (function() {
 		if( sessionStorage.tipo_de_usuario == "estudiante" ){
 			// Imprimiendo el texto
@@ -423,8 +430,8 @@ function element(e){
 				data.push($(this).text());
 			}
 		}
-	}); 
-	
+	});
+
 	editando_estudiantes(data);
 	// alert("Datos listos para edicion.");
 	// Debugging de arreglo.

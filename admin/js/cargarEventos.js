@@ -54,18 +54,22 @@ $( document ).ready( function(){
 
   /* Agrega un evento del tipo click a el boton de la tabla de usuarios con
    * el respectivo id: "rbtn_tu_estud" referente a los usuarios tipo
-   * 'estudiante'.
+   * 'estudiante'. Tambien comprueba si el boton esta deshabilitado o no.
    */
   $( "#rbtn_tu_estud" ).click( function() {
-    activarTabla_estudiante();
+    if ( $( "#rbtn_tu_estud" ).attr( "disabled" ) !== "disabled" ) {
+      activarTabla_estudiante();
+    }
   });
 
   /* Agrega un evento del tipo click a el boton de la tabla de usuarios con
    * el respectivo id: "rbtn_tu_coord" referente a los usuarios tipo
-   * 'estudiante'.
+   * 'coordinador'. Tambien comprueba si el boton esta deshabilitado o no.
    */
   $( "#rbtn_tu_coord" ).click( function() {
-    activarTabla_coordinador();
+    if ( $( "#rbtn_tu_coord" ).attr( "disabled" ) !== "disabled" ) {
+      activarTabla_coordinador();
+    }
   });
 
   // Boton que se encarga de devolver al estado de creacion de un usuario.
