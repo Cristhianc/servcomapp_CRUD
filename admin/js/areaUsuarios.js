@@ -356,6 +356,7 @@ function activarForm_coordinador() {
  */
 function activarTabla_estudiante() {
   if ( sessionStorage.rboton_tu_estud === "false" ) {
+    $( "#tu_titulo" ).html("Registros de los Usuarios tipo Estudiante");
     $( "#rbtn_tu_coord" ).attr( 'disabled' , 'disabled' );
     sessionStorage.rboton_tu_coord = "false";
     sessionStorage.rboton_tu_estud = "true";
@@ -385,6 +386,7 @@ function activarTabla_estudiante() {
  */
 function activarTabla_coordinador() {
   if ( sessionStorage.rboton_tu_coord === "false" ) {
+    $( "#tu_titulo" ).html("Registros de los Usuarios tipo Coordinador");
     $( "#rbtn_tu_estud" ).attr( 'disabled' , 'disabled' );
     sessionStorage.rboton_tu_coord = "true";
     sessionStorage.rboton_tu_estud = "false";

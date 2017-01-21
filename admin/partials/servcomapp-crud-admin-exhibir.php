@@ -186,7 +186,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
               Mostrar Coordinadores
             </label>
           </div>
-          <h2>Registros de los Usuarios</h2>
+          <h2 id="tu_titulo">Registros de los Usuarios tipo Estudiante</h2>
           <table class="table table-hover" id="tabla_usuarios">
             <tr>
               <th>Nombre</th>
