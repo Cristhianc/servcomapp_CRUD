@@ -415,31 +415,53 @@ function activarTabla_coordinador() {
 
 // Funcion que realiza la obtención de datos dependiendo del sessionStorage.
 // Estos datos serán pasados a otras funciones para hacer el set a cada input.
+// La variable band evalua si los elementos son del mismo conjunto.
 function element(e){
-    console.log("Clicking");
-	// Ejemplo de variable sessionStorage.
-	var a = "estudiante";
 	// Obteniendo el id del padre y la fila. Init array vacio para el push de los textos.
 	var fila = $(e).parent().parent();
 	var id_file = fila.attr('id');
 	var data = [];
-	//
+	var band = false;
+	// For para almacenar por cada columna de una fila en una tabla seleccionada. 
+	// Los elementos respectivos.
 	fila.find('th').each (function() {
-		if( sessionStorage.tipo_de_usuario == "estudiante" ){
+		if( sessionStorage.rboton_tu_estud === "true" && sessionStorage.tipo_de_usuario === "estudiante" ){
 			// Imprimiendo el texto
 			console.log($(this).text());
+			
 			if($(this).text() != ""){
 				data.push($(this).text());
 			}
-		}
-	});
+	
+			band = true;
+			editando_estudiantes(data);
 
-	editando_estudiantes(data);
-	// alert("Datos listos para edicion.");
-	// Debugging de arreglo.
+		}else if(sessionStorage.rboton_tu_coord === "true" && 		  sessionStorage.tipo_de_usuario === "coordinador"){
+			// Imprimiendo el texto
+			console.log($(this).text());
+			
+			if($(this).text() != ""){
+			   data.push($(this).text());
+			}
+			
+			band = true;
+			editando_coordinadores(data);
+		}
+
+	});
+	
+	if(band==false){
+		$( "#alerta_usuarios" ).prepend(
+           '<div class="error" id="resp_usuarios">' +
+             '<p>No se puede editar elementos que no son del mismo sector.</p>' +
+           '</div>');
+	}
+
+	// Debugging
 	console.log(data);
 
 }
+
 
 // Funcion que actualiza el valor de los estudiantes en los formularios.
 // Recibe como parámetro el data (arreglo que tiene los campos)
@@ -457,5 +479,48 @@ function editando_estudiantes(data){
 }
 
 
+// Funcion que actualiza el valor de los coordinadores en los formularios.
+// Recibe como parámetro el data (arreglo que tiene los campos)
+// Manda los datos obtenidos a el formulario.
+// Para editar, se cambia el valor del submit.
+function editando_coordinadores(data){
+    $("#us_nom").val(data[0]);
+    $("#us_ape").val(data[1]);
+    $("#us_corr").val(data[2]);
+    $("#us_ced").val(data[3]);
+    $("#us_tel").val(data[4]);
+	$("#us_apo").val(data[5]);
+    $("#us_cla").val(data[6]);
+	$("#us_fac").val(data[7]);
+	$("#us_ofic").val(data[8]);
+}
+
+
+
+// Limpieza de elementos
+ $("#rbtn_estud").click(function(){
+	var emp = "";
+	$("#us_nom").val(emp);
+    $("#us_ape").val(emp);
+    $("#us_corr").val(emp);
+    $("#us_ced").val(emp);
+    $("#us_tel").val(emp);
+	$("#us_apo").val(emp);
+    $("#us_cla").val(emp);
+	$("#us_carr").val(emp);
+ });
+
+ $("#rbtn_coord").click(function(){
+	var vacio = "";
+	$("#us_nom").val(vacio);
+    $("#us_ape").val(vacio);
+    $("#us_corr").val(vacio);
+    $("#us_ced").val(vacio);
+    $("#us_tel").val(vacio);
+	$("#us_apo").val(vacio);
+    $("#us_cla").val(vacio);
+	$("#us_fac").val(vacio);
+	$("#us_ofic").val(vacio);
+ });
 
 // FIN DEL AREA DE MANEJO DE LA GUI
