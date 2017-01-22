@@ -419,12 +419,15 @@ function activarTabla_coordinador() {
 function element(e){
 	// Obteniendo el id del padre y la fila. Init array vacio para el push de los textos.
 	var fila = $(e).parent().parent();
+	// Obteniendo id del elemento de MYSQL
 	var id_file = fila.attr('id');
+	// Arreglo creado sin limite.
 	var data = [];
 	var band = false;
 	// For para almacenar por cada columna de una fila en una tabla seleccionada. 
 	// Los elementos respectivos.
 	fila.find('th').each (function() {
+		// Verificacion si los dos botones del mismo elemento están clickeados.
 		if( sessionStorage.rboton_tu_estud === "true" && sessionStorage.tipo_de_usuario === "estudiante" ){
 			// Imprimiendo el texto
 			console.log($(this).text());
@@ -450,6 +453,7 @@ function element(e){
 
 	});
 	
+	// Si se colocan dos botones no del mismo elemento se activa la alerta.
 	if(band==false){
 		$( "#alerta_usuarios" ).prepend(
            '<div class="error" id="resp_usuarios">' +
@@ -495,9 +499,8 @@ function editando_coordinadores(data){
 	$("#us_ofic").val(data[8]);
 }
 
-
-
-// Limpieza de elementos
+// Limpieza de elementos cuando se cambia el boton.
+// En estudiantes y coordinadores.
  $("#rbtn_estud").click(function(){
 	var emp = "";
 	$("#us_nom").val(emp);
