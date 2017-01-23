@@ -417,15 +417,24 @@ function activarTabla_coordinador() {
 // Estos datos serán pasados a otras funciones para hacer el set a cada input.
 // La variable band evalua si los elementos son del mismo conjunto.
 function element(e){
+	
+	// Cambio de tipo de sessionStorage de manera global a editar.
+	// Edicion del texto arriba del formulario dependiendo de la consulta editar.
+	sessionStorage.tipo_consulta = "editar";
+	$( ".titulo_usuario" ).html("Editando usuario");
+	
 	// Obteniendo el id del padre y la fila. Init array vacio para el push de los textos.
 	var fila = $(e).parent().parent();
-	// Obteniendo id del elemento de MYSQL
+	// Obteniendo id del elemento de MySQL.
 	var id_file = fila.attr('id');
-	// Arreglo creado sin limite.
+	// Arreglo creado sin limite donde se almacenara la informacion de estudiante
+	// o de coordinadores.
 	var data = [];
+	// Variable booleana para la validacion de los elementos clickeados sean iguales.
 	var band = false;
-	// For para almacenar por cada columna de una fila en una tabla seleccionada. 
-	// Los elementos respectivos.
+	
+	// Recorrido para almacenar por cada columna de una fila 
+	// en una tabla seleccionada los elementos respectivos.
 	fila.find('th').each (function() {
 		// Verificacion si los dos botones del mismo elemento están clickeados.
 		if( sessionStorage.rboton_tu_estud === "true" && sessionStorage.tipo_de_usuario === "estudiante" ){
@@ -463,6 +472,11 @@ function element(e){
 
 	// Debugging
 	console.log(data);
+	// Debugging
+	console.log(sessionStorage.tipo_consulta);
+	
+	// ALMACENAMIENTO DE ID EN VARIABLE GLOBAL SESSIONSTORAGE
+	sessionStorage.id = id_file;
 
 }
 
@@ -526,4 +540,13 @@ function editando_coordinadores(data){
 	$("#us_ofic").val(vacio);
  });
 
+/* Procedimiento que se encarga de editar un usuario, ya sea
+ * coordinador o estudiante, pasandole toda la data introducida por el usuario
+ * en el formulario de usuarios. Se busca el id de la persona en el sessionStorage.
+ */
+function editar_usuario(data){
+	// Almacenando la variable del apodo/id para usarla en la llamada PHP.
+	var id = sessionStorage.id;
+	
+}
 // FIN DEL AREA DE MANEJO DE LA GUI

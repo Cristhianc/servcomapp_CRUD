@@ -19,6 +19,9 @@ $( document ).ready( function(){
   sessionStorage.setItem( "rboton_tu_estud", "true" );
   sessionStorage.setItem( "rboton_tu_coord", "false" );
   sessionStorage.setItem( "tipo_de_usuario", "estudiante" );
+	
+  // sessionStorage para almacenamiento de variable id de manera global (Que se usa en editar y borrar)
+  sessionStorage.setItem("id", null);
 
   /* Establece una variable de sesion para poder determinar el tipo de consulta
    * que se desea llevar a cabo. Esto solo aplica para los casos de insertar y
@@ -79,7 +82,8 @@ $( document ).ready( function(){
       $( ".titulo_usuario" ).html("Crear Usuario");
     }
   });
-
+	
+  
   /* Agrega un evento del tipo submit que se ejecutara al enviar el formulario
    * correctamente para que sea procesado por AJAX y luego por el archivo .php
    * que le corresponda dependiendo del caso.*/
@@ -93,10 +97,19 @@ $( document ).ready( function(){
     // Funcion que previene la recarga de la pagina
     evento.preventDefault();
 
-    /* Llamada al procedimiento que inserta o edita los datos, pasando la data
+    /* Llamada al procedimiento que inserta, edita o borra los datos, pasando la data
      * del formulario.
      */
-    insertar_usuarios( data );
+	  if(sessionStorage.tipo_consulta === "editar" && sessionStorage.id != null){
+		 // Llamada al procedimiento de edicion de usuario.
+		 // editar_usuario(data);
+	  }else if(sessionStorage.tipo_consulta === "borrar" && sessionStorage.id != null){
+		 // Llamada al procedimiento de eliminacion de usuario.
+		  // eliminar_usuario(data);
+	  }else{
+		insertar_usuarios( data );
+	  }
+
   });
 
   // FIN DEL AREA DE LOS EVENTOS PARA EL FORMULARIO DE LOS USUARIOS
