@@ -575,11 +575,17 @@ function editar_usuario(data){
    * El nombre de la variable que se pasa por el metodo post para determinar el
    * tipo de consulta se llama 'tipo_cons'.
    */
-   /* Se pasa el id del estudiante al arreglo data */
-   data = '{'
-       +'"tipo_cons" : "editar",'
-       +'"id_busq"  : '+id+''
-       +'}';
+    
+   /* 
+      Se crean dos arreglos consulta y busquedaID con opciones para enviarlas al      servidor. Consulta contiene el tipo de consulta que se ejecutara y busquedaID tiene el ide de busqueda del usuario que se editará
+      Se pasa el id del estudiante al arreglo data. 
+      Se concatenan ambos arreglos para ser ingresados en el arreglo data 
+      para su evaluacion en el switch.
+   */
+   var consulta = [{name : 'tipo_cons', value: 'editar'}];
+   var busquedaID = [{name : 'id_busq', value: id}];
+   data = data.concat(consulta);    
+   data = data.concat(busquedaID);
 
 
   /* Mediante AJAX y pasandole los parametros correspondiente a esta funcion,
@@ -633,7 +639,7 @@ function editar_usuario(data){
        } else if ( sessionStorage.tipo_de_usuario === "coordinador" ) {
          $( "#alerta_usuarios" ).prepend(
            '<div class="updated" id="resp_usuarios">' +
-             '<p>Coordinador Registrado correctamente</p>' +
+             '<p>Coordinador editado correctamente!</p>' +
            '</div>'
          );
          if ( sessionStorage.rboton_tu_coord === "true" ) {

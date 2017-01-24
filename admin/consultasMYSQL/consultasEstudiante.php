@@ -149,15 +149,52 @@ function seleccionar_Estudiantes() {
   echo $resultado;
 }
 
-
+/* Procedimiento para editar los datos de un estudiante pasandole por parametro el id que en este caso seria el apodo del mismo */
+/* En esta funcion todo cambiara exceptuando el apodo */
 function editar_Estud($id){
-    $bdd = new servcomapp_crud_bdd();
+   /* La variable $id hace referencia al campo del apodo */
+   /* Conexion a la base de datos usando una clase pre-definida. */
+   $bdd = new servcomapp_crud_bdd();
+   /* Escapando los caracteres para impedir cualquier tipo de inyeccion SQL. */
     $nombre = $bdd -> citar_escapar( $_POST['us_nom'] );
+    $apellido = $bdd -> citar_escapar( $_POST['us_ape'] );
+    $correo = $bdd -> citar_escapar( $_POST['us_corr'] );
+    $cedula = $bdd -> citar_escapar( $_POST['us_ced'] );
+    $telefono = $bdd -> citar_escapar( $_POST['us_tel'] );
+    $clave = $bdd -> citar_escapar( $_POST['us_cla'] );
+    $carrera = $bdd -> citar_escapar( $_POST['us_carr'] );
     
-    $resultado_usuario = $bdd -> consultar( "UPDATE" . " sc_usuarios SET us_nombre=" . $nombre . "WHERE us_apodo=" . $id .  "");
+   /* Variable que almacena el id contable del usuario */
+   $usuario_id = $bdd -> seleccionar( "SELECT us_id FROM sc_usuarios WHERE us_apodo = '" . $id  . "'");
     
-     //Cierra la conexion a la base de datos.
-     $bdd -> cerrar_conexion();
+   /* Query que almacena un array de la columna carreras */
+   $carrera_i = $bdd -> seleccionar( "SELECT ca_id FROM sc_carreras WHERE ca_nombre = " . $carrera );
+   
+   /* Almacenamiento de valor fijo del select */
+   $usuario_id_cons = $usuario_id[0]['us_id'];
+    
+   /* Query para la cedula vieja */
+   $cedula_vieja = $bdd -> seleccionar( "SELECT pe_cedula FROM sc_personas WHERE sc_usuarios_us_id = '" . $usuario_id_cons  . "'");
+    
+    /* Variable para almacenar la cedula vieja */
+    $cedula_id_cons = $cedula_vieja[0]['pe_cedula'];
+    
+    /* Query que act el nombre y el apodo del usuario a editar */
+   $resultado_usuario = $bdd -> consultar( "UPDATE" . " sc_usuarios SET us_nombre=" . $nombre . ", us_clave=" . $clave . " WHERE us_apodo='" . $id .  "'");
+    
+    /* Query que act los campos en la tabla personas */ 
+   $resultado_personas = $bdd -> consultar( "UPDATE" . " sc_personas SET pe_nombre=" . $nombre . ", pe_apellido=" . $apellido . ", pe_correo=" . $correo . ", pe_telefono=" . $telefono . ", pe_cedula=" . $cedula . " WHERE sc_usuarios_us_id='" . $usuario_id_cons . "'");
+    
+   /* Query para almacenar el id de la carrera seleccionada */
+   $carrera_id = $bdd -> seleccionar( "SELECT ca_id FROM sc_carreras WHERE ca_nombre = " . $carrera );
+    
+    /* Query que act el nombre y el apodo del usuario a editar */
+   $resultado_estudiantes = $bdd -> consultar( "UPDATE" . " sc_estudiantes SET sc_personas_pe_cedula=" . $cedula . ", sc_carreras_ca_id=" . $carrera_i[0]['ca_id'] . " WHERE sc_personas_pe_cedula='" . $cedula_id_cons .  "'");
+    
+    //Cierra la conexion a la base de datos.
+    $bdd -> cerrar_conexion();
+
+    echo $cedula_id_cons;
 }
 
 
@@ -184,7 +221,6 @@ switch ( $_POST['tipo_cons'] ) {
     # code..
     $id = $_POST['id_busq'];
     editar_Estud($id);
-    echo "hola";
     break;
 
   // Eliminar
@@ -197,6 +233,5 @@ switch ( $_POST['tipo_cons'] ) {
   // Accion por defecto
   default:
     # code...
-    echo "hola";
     break;
 }

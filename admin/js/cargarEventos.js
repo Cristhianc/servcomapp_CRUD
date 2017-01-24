@@ -102,7 +102,7 @@ $( document ).ready( function(){
      */
 	  if(sessionStorage.tipo_consulta === "editar" && sessionStorage.id != null){
 		 // Llamada al procedimiento de edicion de usuario.
-		 // editar_usuario(data);
+		  editar_usuario(data);
 	  }else if(sessionStorage.tipo_consulta === "borrar" && sessionStorage.id != null){
 		 // Llamada al procedimiento de eliminacion de usuario.
 		  // eliminar_usuario(data);
