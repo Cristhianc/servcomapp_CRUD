@@ -547,6 +547,153 @@ function editando_coordinadores(data){
 function editar_usuario(data){
 	// Almacenando la variable del apodo/id para usarla en la llamada PHP.
 	var id = sessionStorage.id;
-	
+
+   /**
+   * @var    dir_url       La ubicacion del archivo .php que procesara la
+   *                        consulta.
+   */
+  var dir_url;
+
+  /* Remueve el elemento donde va la respuesta del servidor, si es que hubo
+   * una consulta anterior a esta.
+   */
+  $( "#resp_usuarios" ).remove();
+
+  /* Si el tipo de usuario que esta indicado es 'estudiante', entonces indica
+   * la direccion url para procesar la consulta respectiva, de lo contrario
+   * indica la direccion url respectiva para el tipo de usuario 'coordinador'.
+   */
+  if ( sessionStorage.tipo_de_usuario === "estudiante" ) {
+    dir_url = "../wp-content/mu-plugins/servcomapp_CRUD/admin/consultasMYSQL/consultasEstudiante.php";
+  } else if ( sessionStorage.tipo_de_usuario === "coordinador" ){
+    dir_url = "../wp-content/mu-plugins/servcomapp_CRUD/admin/consultasMYSQL/consultasCoordinador.php";
+  }
+
+
+  /* Agrega el tipo de consulta que se va a realizar en el archivo .php
+   * respectivo. De esta manera se logra llamar solo a la funcion de insercion.
+   * El nombre de la variable que se pasa por el metodo post para determinar el
+   * tipo de consulta se llama 'tipo_cons'.
+   */
+   /* Se pasa el id del estudiante al arreglo data */
+   data = '{'
+       +'"tipo_cons" : "editar",'
+       +'"id_busq"  : '+id+''
+       +'}';
+
+
+  /* Mediante AJAX y pasandole los parametros correspondiente a esta funcion,
+   * se logra enviar todos los datos necesarios para que el servidor procese
+   * la peticion de manera efectiva con el uso del metodo POST.
+   */
+  $.ajax({
+    url: dir_url,
+    type: "POST",
+    data: data
+  })
+  .done( function( respuesta ) {
+
+    /* Funcion que se ejecuta si la consulta fue exitosa. Tambien indica el
+     * tipo de usuario que fue registrado correctamente. Si no se pudo registrar
+     * informa sobre el fallo al usuario. Ademas, agrega a la tabla activa en el
+     * momento el usuario que fue insertado, siempre y cuando corresponda al
+     * tipo de tabla activa.
+     */
+     if ( respuesta === "true" ) {
+       if ( sessionStorage.tipo_de_usuario === "estudiante" ) {
+         $( "#alerta_usuarios" ).prepend(
+           '<div class="updated" id="resp_usuarios">' +
+             '<p>Estudiante editado correctamente!</p>' +
+           '</div>'
+         );
+         if ( sessionStorage.rboton_tu_estud === "true" ) {
+           $("#tabla_usuarios").append(
+             '<tr id="' + data[5]["value"] + '">' +
+               '<th>' + data[0]["value"] + '</th>' +
+               '<th>' + data[1]["value"] + '</th>' +
+               '<th>' + data[2]["value"] + '</th>' +
+               '<th>' + data[3]["value"] + '</th>' +
+               '<th>' + data[4]["value"] + '</th>' +
+               '<th>' + data[5]["value"] + '</th>' +
+               '<th>' + data[6]["value"] + '</th>' +
+               '<th>' + data[7]["value"] + '</th>' +
+               '<th>' +
+                 '<button type="button" class="btn btn-default btn-sm">' +
+                   '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
+                 '</button>' +
+               '</th>' +
+               '<th>' +
+                 '<button type="button" class="btn btn-default btn-sm">' +
+                   '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' +
+                 '</button>' +
+               '</th>' +
+             '</tr>'
+           );
+         }
+       } else if ( sessionStorage.tipo_de_usuario === "coordinador" ) {
+         $( "#alerta_usuarios" ).prepend(
+           '<div class="updated" id="resp_usuarios">' +
+             '<p>Coordinador Registrado correctamente</p>' +
+           '</div>'
+         );
+         if ( sessionStorage.rboton_tu_coord === "true" ) {
+           $( "#tabla_usuarios" ).append(
+             '<tr id="' + data[5]["value"] + '">' +
+               '<th>' + data[0]["value"] + '</th>' +
+               '<th>' + data[1]["value"] + '</th>' +
+               '<th>' + data[2]["value"] + '</th>' +
+               '<th>' + data[3]["value"] + '</th>' +
+               '<th>' + data[4]["value"] + '</th>' +
+               '<th>' + data[5]["value"] + '</th>' +
+               '<th>' + data[6]["value"] + '</th>' +
+               '<th>' + data[7]["value"] + '</th>' +
+               '<th>' + data[8]["value"] + '</th>' +
+               '<th>' +
+                 '<button type="button" class="btn btn-default btn-sm">' +
+                   '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>' +
+                 '</button>' +
+               '</th>' +
+               '<th>' +
+                 '<button type="button" class="btn btn-default btn-sm">' +
+                   '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' +
+                 '</button>' +
+               '</th>' +
+             '</tr>'
+           );
+         }
+       }
+     }
+     else if ( respuesta === "false" ) {
+       if ( sessionStorage.tipo_de_usuario === "estudiante" ) {
+         $( "#alerta_usuarios" ).prepend(
+           '<div class="updated" id="resp_usuarios">' +
+             '<p>No se pudo editar al estudiante. Verifique que no exista ' +
+             'aun o que los valores de cada campo estan en el formato correcto</p>' +
+           '</div>'
+         );
+       } else if ( sessionStorage.tipo_de_usuario === "coordinador" ) {
+         $( "#alerta_usuarios" ).prepend(
+           '<div class="updated" id="resp_usuarios">' +
+            '<p>No se pudo editar al coordinador. Verifique que no exista ' +
+            'aun o que los valores de cada campo estan en el formato correcto</p>' +
+           '</div>'
+         );
+       }
+     }
+  })
+  .fail( function( xhr, status, error ) {
+
+    /* Funcion que se ejecuta si la consulta no fue exitosa. Tambien indica el
+     * tipo de usuario que no pudo ser registrado. Imprime el estado, error e
+     * informacion adicional acerca de la situacion presente.
+     */
+    console.log( "Estado: " + status + " Error: " + error );
+    console.log( xhr );
+  })
+  .always( function() {
+    /*Funcion que se ejecuta siempre, sea exitosa o no la consulta.*/
+  });
+
+
 }
 // FIN DEL AREA DE MANEJO DE LA GUI

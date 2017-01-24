@@ -114,7 +114,6 @@ function insertar_Estudiante() {
      //Cierra la conexion a la base de datos.
      $bdd -> cerrar_conexion();
 
-
   }
 }
 
@@ -150,6 +149,19 @@ function seleccionar_Estudiantes() {
   echo $resultado;
 }
 
+
+function editar_Estud($id){
+    $bdd = new servcomapp_crud_bdd();
+    $nombre = $bdd -> citar_escapar( $_POST['us_nom'] );
+    
+    $resultado_usuario = $bdd -> consultar( "UPDATE" . " sc_usuarios SET us_nombre=" . $nombre . "WHERE us_apodo=" . $id .  "");
+    
+     //Cierra la conexion a la base de datos.
+     $bdd -> cerrar_conexion();
+}
+
+
+
 /* Verifica que tipo de consulta se envio y ejecuta su caso correspondiente.
  * Aqui deberian ir todas las llamadas a las funciones respectivas de cada tipo
  * de consulta.
@@ -169,16 +181,22 @@ switch ( $_POST['tipo_cons'] ) {
 
   // Editar
   case 'editar':
-    # code...
+    # code..
+    $id = $_POST['id_busq'];
+    editar_Estud($id);
+    echo "hola";
     break;
 
   // Eliminar
   case 'eliminar':
     # code...
+    //$id = $_POST['id_busq'];
+    //eliminar_Estud($id);
     break;
 
   // Accion por defecto
   default:
     # code...
+    echo "hola";
     break;
 }
