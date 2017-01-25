@@ -148,6 +148,7 @@ function seleccionar_Coordinadores() {
   echo $resultado;
 }
 
+// Procedimiento para editar un coordinador.
 function editar_Coordinadores($id){
      /* La variable $id hace referencia al campo del apodo */
     /* Conexion a la base de datos usando una clase pre-definida. */
@@ -185,9 +186,8 @@ function editar_Coordinadores($id){
     /* Query que act los campos en la tabla personas */ 
    $resultado_personas = $bdd -> consultar( "UPDATE" . " sc_personas SET pe_nombre=" . $nombre . ", pe_apellido=" . $apellido . ", pe_correo=" . $correo . ", pe_telefono=" . $telefono . ", pe_cedula=" . $cedula . " WHERE sc_usuarios_us_id='" . $usuario_id_cons . "'");
     
-   /* Query que act el nombre y el apodo del usuario a editar */
+   /* Query que act la oficina y la facultad del coordinador */
    $resultado_coordinadores = $bdd -> consultar( "UPDATE" . " sc_coordinadores SET co_oficina=" . $ofi . ", sc_facultades_fa_id=" . $facultad_cons . " WHERE sc_personas_pe_cedula='" . $cedula_id_cons .  "'");
-    
         
     //Cierra la conexion a la base de datos.
     $bdd -> cerrar_conexion();

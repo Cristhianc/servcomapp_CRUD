@@ -202,14 +202,20 @@ function eliminar_Estud($id, $tipo){
     
     if($tipo == "estudiante"){
         
+    /* Consulta para obtener el arreglo de la columna del id del usuario */
     $id_persona_array = $bdd -> seleccionar( "SELECT us_id FROM sc_usuarios WHERE us_apodo = " . $id );
     
+    /* Se busca el valor entero del arreglo*/
     $id_persona = $id_persona_array[0]['us_id'];
 
+    // PROBLEM HERE !
+    // Se act la tabla principal el estado a 0.
     $resultado_usuarios = $bdd -> consultar( "UPDATE" . " sc_usuarios SET us_status=" . $delete . " WHERE us_id='" . $id_persona .  "'");
     
-    /*   
-    $resultado_personas= $bdd -> consultar( "UPDATE" . " sc_personas SET sc_usuarios_us_id = 0 FROM sc_personas INNER JOIN sc_usuarios ON (us_id = sc_usuarios_us_id) WHERE us_id='" . $id_persona .  "'");
+    // Act tablas secundarias vinculadas con el id de persona
+    
+    /*
+    $resultado_personas= $bdd -> consultar( "UPDATE" . " sc_personas SET sc_usuarios_us_id = 0 FROM sc_personas INNER JOIN sc_usuarios ON (us_id = sc_usuarios_us_id) WHERE us_id=" . $id_persona);
     */
         
     }
