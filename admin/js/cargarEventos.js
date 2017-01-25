@@ -107,6 +107,7 @@ $( document ).ready( function(){
 		 // Llamada al procedimiento de eliminacion de usuario.
 		  eliminar_usuario(data);
 	  }else{
+		  // Insercion default de los datos.
 		insertar_usuarios( data );
 	  }
 
