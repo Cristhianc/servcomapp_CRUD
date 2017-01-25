@@ -185,9 +185,6 @@ function editar_Estud($id){
     /* Query que act los campos en la tabla personas */ 
    $resultado_personas = $bdd -> consultar( "UPDATE" . " sc_personas SET pe_nombre=" . $nombre . ", pe_apellido=" . $apellido . ", pe_correo=" . $correo . ", pe_telefono=" . $telefono . ", pe_cedula=" . $cedula . " WHERE sc_usuarios_us_id='" . $usuario_id_cons . "'");
     
-   /* Query para almacenar el id de la carrera seleccionada */
-   $carrera_id = $bdd -> seleccionar( "SELECT ca_id FROM sc_carreras WHERE ca_nombre = " . $carrera );
-    
     /* Query que act el nombre y el apodo del usuario a editar */
    $resultado_estudiantes = $bdd -> consultar( "UPDATE" . " sc_estudiantes SET sc_personas_pe_cedula=" . $cedula . ", sc_carreras_ca_id=" . $carrera_i[0]['ca_id'] . " WHERE sc_personas_pe_cedula='" . $cedula_id_cons .  "'");
     

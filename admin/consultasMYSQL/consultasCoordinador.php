@@ -148,6 +148,52 @@ function seleccionar_Coordinadores() {
   echo $resultado;
 }
 
+function editar_Coordinadores($id){
+     /* La variable $id hace referencia al campo del apodo */
+    /* Conexion a la base de datos usando una clase pre-definida. */
+    $bdd = new servcomapp_crud_bdd();
+    /* Escapando los caracteres para impedir cualquier tipo de inyeccion SQL. */
+    $nombre = $bdd -> citar_escapar( $_POST['us_nom'] );
+    $apellido = $bdd -> citar_escapar( $_POST['us_ape'] );
+    $correo = $bdd -> citar_escapar( $_POST['us_corr'] );
+    $cedula = $bdd -> citar_escapar( $_POST['us_ced'] );
+    $telefono = $bdd -> citar_escapar( $_POST['us_tel'] );
+    $clave = $bdd -> citar_escapar( $_POST['us_cla'] );
+    $facultad = $bdd -> citar_escapar( $_POST['us_fac'] );
+    $ofi = $bdd -> citar_escapar( $_POST['us_ofic'] );
+
+   /* Variable que almacena el id contable del usuario */
+   $usuario_id = $bdd -> seleccionar( "SELECT us_id FROM sc_usuarios WHERE us_apodo = '" . $id  . "'");
+    
+   // Query para la busqueda de la facultad
+   $fa_i = $bdd -> seleccionar( "SELECT fa_id FROM sc_facultades WHERE fa_nombre =" . $facultad );
+    
+   $facultad_cons = $fa_i[0]['fa_id'];
+        
+   /* Almacenamiento de valor fijo del select */
+   $usuario_id_cons = $usuario_id[0]['us_id'];
+    
+   /* Query para la cedula vieja */
+   $cedula_vieja = $bdd -> seleccionar( "SELECT pe_cedula FROM sc_personas WHERE sc_usuarios_us_id = '" . $usuario_id_cons  . "'");
+    
+    /* Variable para almacenar la cedula vieja */
+    $cedula_id_cons = $cedula_vieja[0]['pe_cedula'];
+    
+    /* Query que act el nombre y el apodo del usuario a editar */
+   $resultado_usuario = $bdd -> consultar( "UPDATE" . " sc_usuarios SET us_nombre=" . $nombre . ", us_clave=" . $clave . " WHERE us_apodo='" . $id .  "'");
+    
+    /* Query que act los campos en la tabla personas */ 
+   $resultado_personas = $bdd -> consultar( "UPDATE" . " sc_personas SET pe_nombre=" . $nombre . ", pe_apellido=" . $apellido . ", pe_correo=" . $correo . ", pe_telefono=" . $telefono . ", pe_cedula=" . $cedula . " WHERE sc_usuarios_us_id='" . $usuario_id_cons . "'");
+    
+   /* Query que act el nombre y el apodo del usuario a editar */
+   $resultado_coordinadores = $bdd -> consultar( "UPDATE" . " sc_coordinadores SET co_oficina=" . $ofi . ", sc_facultades_fa_id=" . $facultad_cons . " WHERE sc_personas_pe_cedula='" . $cedula_id_cons .  "'");
+    
+        
+    //Cierra la conexion a la base de datos.
+    $bdd -> cerrar_conexion();
+
+}
+
 /* Verifica que tipo de consulta se envio y ejecuta su caso correspondiente.
  * Aqui deberian ir todas las llamadas a las funciones respectivas de cada tipo
  * de consulta.
@@ -168,6 +214,8 @@ switch ( $_POST['tipo_cons'] ) {
   // Editar
   case 'editar':
     # code...
+    $id = $_POST['id_busq'];
+    editar_Coordinadores($id);
     break;
 
   // Eliminar
