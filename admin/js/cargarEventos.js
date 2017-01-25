@@ -105,7 +105,7 @@ $( document ).ready( function(){
 		  editar_usuario(data);
 	  }else if(sessionStorage.tipo_consulta === "borrar" && sessionStorage.id != null){
 		 // Llamada al procedimiento de eliminacion de usuario.
-		  // eliminar_usuario(data);
+		  eliminar_usuario(data);
 	  }else{
 		insertar_usuarios( data );
 	  }
@@ -115,3 +115,4 @@ $( document ).ready( function(){
   // FIN DEL AREA DE LOS EVENTOS PARA EL FORMULARIO DE LOS USUARIOS
 
 });
+
