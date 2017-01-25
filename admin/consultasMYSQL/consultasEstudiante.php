@@ -197,7 +197,29 @@ function editar_Estud($id){
     echo $cedula_id_cons;
 }
 
+function eliminar_Estud($id, $tipo){
+    /* La variable $id hace referencia al campo del apodo */
+   /* Conexion a la base de datos usando una clase pre-definida. */  
+   $delete = 0;
+   $bdd = new servcomapp_crud_bdd();
+    
+    if($tipo == "estudiante"){
+        
+    $id_persona_array = $bdd -> seleccionar( "SELECT us_id FROM sc_usuarios WHERE us_apodo = " . $id );
+    
+    $id_persona = $id_persona_array[0]['us_id'];
 
+    $resultado_usuarios = $bdd -> consultar( "UPDATE" . " sc_usuarios SET us_status=" . $delete . " WHERE us_id='" . $id_persona .  "'");
+    
+    /*   
+    $resultado_personas= $bdd -> consultar( "UPDATE" . " sc_personas SET sc_usuarios_us_id = 0 FROM sc_personas INNER JOIN sc_usuarios ON (us_id = sc_usuarios_us_id) WHERE us_id='" . $id_persona .  "'");
+    */
+        
+    }
+  
+   //Cierra la conexion a la base de datos.
+    $bdd -> cerrar_conexion();
+}
 
 /* Verifica que tipo de consulta se envio y ejecuta su caso correspondiente.
  * Aqui deberian ir todas las llamadas a las funciones respectivas de cada tipo
@@ -226,8 +248,9 @@ switch ( $_POST['tipo_cons'] ) {
   // Eliminar
   case 'eliminar':
     # code...
-    //$id = $_POST['id_busq'];
-    //eliminar_Estud($id);
+    $id = $_POST['id_busq'];
+    $tipo = $_POST['tipo'];
+    eliminar_Estud($id, $tipo);
     break;
 
   // Accion por defecto
