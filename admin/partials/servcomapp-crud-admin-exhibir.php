@@ -210,33 +210,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
     <!-- Contenido de PROGRAMAS -->
     <div role="tabpanel" class="tab-pane" id="programas">
-      <!-- Fila del contenido de Programas-->
-      <div class="row">
-        <div class="col-md-12">
-          <!--button type="button" class="btn btn-primary btn-lg" id="add_programa">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            Agregar
-          </button-->
-          <div class="well center-block" id="bloque_programas">
-            <button type="button" class="btn btn-primary btn-lg btn-block btn-edit">
-              Programas de Servicio Comunitario de la Facultad de Ingeniería
-            </button>
-            <button type="button" class="btn btn-primary btn-lg btn-block btn-edit">
-              Programas de Servicio Comunitario de la Facultad de Ciencias Sociales
-            </button>
-            <button type="button" class="btn btn-primary btn-lg btn-block btn-edit">
-              Programas de Servicio Comunitario de la Facultad de Ciencias de la Educación
-            </button>
-            <button type="button" class="btn btn-primary btn-lg btn-block btn-edit">
-              Programas de Servicio Comunitario de la Facultad de Ciencias de la Salud
-            </button>
-            <button type="button" class="btn btn-primary btn-lg btn-block btn-edit">
-              Programas de Servicio Comunitario de la Facultad de Ciencias Jurídicas y Políticas
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- /Fila del contenido de Programas-->
+      <?php include "contenido-programas/contenido.php"; ?>
     </div>
     <!-- /Contenido de PROGRAMAS -->
 

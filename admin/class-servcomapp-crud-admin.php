@@ -103,6 +103,12 @@ class servcomapp_crud_admin {
 			$this->version,
 			true
 		);
+		wp_enqueue_script( 'servcomapp-areaProgramas',
+			plugin_dir_url( __FILE__ ) . 'js/areaProgramas.js',
+			array('jquery'),
+			$this->version,
+			true
+		);
 		wp_enqueue_script( 'servcomapp-cargarEventos',
  			plugin_dir_url( __FILE__ ) . 'js/cargarEventos.js',
  			array('jquery'),

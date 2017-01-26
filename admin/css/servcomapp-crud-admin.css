@@ -4,73 +4,287 @@
  */
 
 /* Titulo del plugin*/
+
 #servcomapp_titulo {
-  margin: 20px;
-  font-weight: bold;
-}
-/*Botones tipo radio de la pestaña usuarios*/
-#rbtn_usuarios {
-  /*margin:20px 0px 30px 150px;*/
-    margin: 20px 0px;
-}
-/*Bloque que contiene a los distintos programas*/
-#bloque_programas {
-  margin: 40px;
-}
-/*Boton que añade un nuevo programa*/
-#add_programa {
-  margin:30px 0px 0px 30px;
-}
-/*Titulos de los formularios*/
-.titulo_crear {
- /* margin-left: 160px;*/
-    text-align: center;
-}
-/*Formulario de tutores e instituciones*/
-#form_tutores, #form_instituciones {
-  margin-top: 20px;
-}
-#panel {
-  margin: 25px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  border-color: white;
-}
-#us_boton, #tut_boton, #inst_boton {
-  margin: 5px;
-}
-#alerta_usuarios {
-  margin: 30px 0px 20px 15px;
-}
-.btns_formulario {
-  margin: 5px 0px 10px 185px;
+    margin: 20px;
+    font-weight: bold;
 }
 
-a:focus{
- box-shadow: 0 0 0 1px transparent, 0 0 2px 1px rgba(255,255,255,255);
+/*Botones tipo radio de la pestaña usuarios*/
+
+#rbtn_usuarios {
+    /*margin:20px 0px 30px 150px;*/
+    margin: 20px 0px;
 }
+
+/*Bloque que contiene a los distintos programas*/
+
+#bloque_programas {
+    margin: 40px;
+}
+
+/*Boton que añade un nuevo programa*/
+
+#add_programa {
+    margin: 30px 0px 0px 30px;
+}
+
+/*Titulos de los formularios*/
+
+.titulo_crear {
+    /* margin-left: 160px;*/
+    text-align: center;
+}
+
+/*Formulario de tutores e instituciones*/
+
+#form_tutores,
+#form_instituciones {
+    margin-top: 20px;
+}
+
+#panel {
+    margin: 25px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    border-color: white;
+}
+
+#panel-programas {
+    margin: 25px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    border-color: white;
+}
+
+#us_boton,
+#tut_boton,
+#inst_boton {
+    margin: 5px;
+}
+
+#alerta_usuarios {
+    margin: 30px 0px 20px 15px;
+}
+
+.btns_formulario {
+    margin: 5px 0px 10px 185px;
+}
+
+a:focus {
+    box-shadow: 0 0 0 1px transparent, 0 0 2px 1px rgba(255, 255, 255, 255);
+}
+
 /* Todo lo bueno es de aqui para abajo */
+
 /* Estilos por Elaldio Mejias */
-.btn-edit{
+
+.btn-edit {
     display: block;
     white-space: normal !important;
 }
 
-#servcomapp_titulo{
+#servcomapp_titulo {
     width: 400px;
     font-size: 2em;
 }
 
-.registro{
+.registro {
     padding: 10px;
     background: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
-.btns_formulario{
+.btns_formulario {
     margin: 0 auto;
     text-align: center;
 }
 
 
+.event-list {
+    list-style: none;
+    font-family: 'Lato', sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
 
+.event-list > li {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 5px rgb(51, 51, 51);
+    box-shadow: 0px 0px 5px rgba(51, 51, 51, 0.7);
+    padding: 0px;
+    margin: 0px 0px 20px;
+}
+
+.event-list > li > .cupos {
+    display: inline-block;
+    width: 100%;
+    color: rgb(255, 255, 255);
+    background-color: rgb(51, 122, 183);
+    padding: 5px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+
+.event-list > li > .cupos > span {
+    display: none;
+}
+
+.event-list > li > .cupos > .current {
+    display: inline-block;
+    font-size: 56pt;
+    font-weight: 100;
+    line-height: 1;
+}
+
+.event-list > li .cupos > .total {
+    display: inline-block;
+    font-size: 18pt;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.event-list > li > img {
+    width: 100%;
+}
+
+.event-list > li > .info {
+    padding-top: 5px;
+    text-align: center;
+}
+
+.event-list > li > .info > .title {
+    font-size: 17pt;
+    font-weight: 700;
+    margin: 0px;
+}
+
+.event-list > li > .info > .desc {
+    font-size: 13pt;
+    font-weight: 300;
+    margin: 0px;
+}
+
+.event-list > li > .info > ul,
+.event-list > li > .social > ul {
+    display: table;
+    list-style: none;
+    margin: 10px 0px 0px;
+    padding: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+.event-list > li > .social > ul {
+    margin: 0px;
+}
+
+.event-list > li > .info > ul > li,
+.event-list > li > .social > ul > li {
+    display: table-cell;
+    cursor: pointer;
+    color: rgb(30, 30, 30);
+    font-size: 11pt;
+    font-weight: 300;
+    padding: 3px 0px;
+}
+
+.event-list > li > .info > ul > li > a {
+    display: inline-block;
+    width: 100%;
+    color: rgb(30, 30, 30);
+    text-decoration: none;
+}
+
+.event-list > li > .social > ul > li {
+    padding: 0px;
+}
+
+.event-list > li > .social > ul > li > a {
+    padding: 3px 0px;
+}
+
+.event-list > li > .info > ul > li:hover,
+.event-list > li > .social > ul > li:hover {
+    color: rgb(30, 30, 30);
+    background-color: rgb(200, 200, 200);
+}
+
+@media (min-width: 768px) {
+    .event-list > li {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 180px;
+        padding: 0px;
+    }
+
+    .event-list > li > .cupos,
+    .event-list > li > img {
+        display: inline-block;
+    }
+
+    .event-list > li > .cupos,
+    .event-list > li > img {
+        width: 180px;
+        float: left;
+    }
+
+    .event-list > li > .info {
+        background-color: rgb(245, 245, 245);
+        overflow: hidden;
+    }
+
+    .event-list > li > .cupos,
+    .event-list > li > img {
+        width: 180px;
+        height: 180px;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .event-list > li > .info {
+        position: relative;
+        height: 180px;
+        text-align: left;
+        padding-right: 40px;
+    }
+
+    .event-list > li > .info > .title,
+    .event-list > li > .info > .desc {
+        padding: 0px 10px;
+    }
+
+    .event-list > li > .info > ul {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+    }
+
+    .event-list > li > .social {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        display: block;
+        width: 40px;
+    }
+
+    .event-list > li > .social > ul {
+        border-left: 1px solid rgb(230, 230, 230);
+    }
+
+    .event-list > li > .social > ul > li {
+        display: block;
+        padding: 0px;
+    }
+
+    .event-list > li > .social > ul > li > a {
+        display: block;
+        width: 40px;
+        padding: 10px 0px 9px;
+    }
+}
+
+.container .container-recents {
+    padding: 100px;
+}

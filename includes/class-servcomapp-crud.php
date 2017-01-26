@@ -70,7 +70,7 @@ class servcomapp_crud {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-
+		
 		$this->nombre_plugin = 'servcomapp_CRUD';
 		$this->version = '1.0.0';
 
@@ -104,13 +104,13 @@ class servcomapp_crud {
 		 * La clase responsable de controlar las acciones y filtros centrales del
 		 * plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes\class-servcomapp-crud-cargador.php';
-
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-servcomapp-crud-cargador.php';
+		
 		/**
 		 * La clase responsable de definir la funcionalidad de internacionalizacion
 		 * del plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes\class-servcomapp-crud-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-servcomapp-crud-i18n.php';
 
 		/**
 		 * La clase responsable de definir la coneccion a la base de datos y las
@@ -122,13 +122,13 @@ class servcomapp_crud {
 		 * La clase responsable de definir todas las acciones que ocurren en la area
 		 * de administracion.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin\class-servcomapp-crud-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-servcomapp-crud-admin.php';
 
 		/**
 		 * La clase responsable de definir todas las acciones que ocurran en el lado
 		 * publico del sitio web.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public\class-servcomapp-crud-publico.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-servcomapp-crud-publico.php';
 
 		$this->cargador = new servcomapp_crud_cargador();
 
