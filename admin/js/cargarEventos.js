@@ -19,9 +19,10 @@ $( document ).ready( function(){
   sessionStorage.setItem( "rboton_tu_estud", "true" );
   sessionStorage.setItem( "rboton_tu_coord", "false" );
   sessionStorage.setItem( "tipo_de_usuario", "estudiante" );
-	
+  sessionStorage.setItem( "tipo_de_usuario_tabla", "estudiante" );
+
   // sessionStorage para almacenamiento de variable id de manera global (Que se usa en editar y borrar)
-  sessionStorage.setItem("id", null);
+  sessionStorage.setItem( "id", null );
 
   /* Establece una variable de sesion para poder determinar el tipo de consulta
    * que se desea llevar a cabo. Esto solo aplica para los casos de insertar y
@@ -39,7 +40,7 @@ $( document ).ready( function(){
    * carga la tabla de usuarios del tipo 'estudiante' con todos los registros
    * existentes que haya en la base de datos.
    */
-  seleccionar_usuarios("estudiante");
+  seleccionar_usuarios( "estudiante" );
 
   /* Agrega un evento del tipo click a el boton del formulario de usuarios con
    * el respectivo id: "rbtn_estud" referente a los usuarios tipo 'estudiante'.
@@ -79,15 +80,35 @@ $( document ).ready( function(){
   $( "#btn_agregarUsuario" ).click( function() {
     if ( sessionStorage.tipo_consulta !== "insertar" ) {
       sessionStorage.tipo_consulta = "insertar";
-      $( ".titulo_usuario" ).html("Crear Usuario");
+      $( ".titulo_usuario" ).html( "Crear Usuario" );
+      if ( sessionStorage.tipo_de_usuario === "estudiante" ) {
+        $( "#us_nom" ).val( "" );
+        $( "#us_ape").val( "" );
+        $( "#us_corr" ).val( "" );
+        $( "#us_ced" ).val( "" );
+        $( "#us_tel" ).val( "" );
+      	$( "#us_apo" ).val( "" );
+        $( "#us_cla" ).val( "" );
+      	$( "#us_carr" ).val( "" );
+      } else if ( sessionStorage.tipo_de_usuario === "coordinador" ) {
+        $( "#us_nom" ).val( "" );
+        $( "#us_ape" ).val( "" );
+        $( "#us_corr" ).val( "" );
+        $( "#us_ced" ).val( "" );
+        $( "#us_tel" ).val( "" );
+      	$( "#us_apo" ).val( "" );
+        $( "#us_cla" ).val( "" );
+      	$( "#us_fac" ).val( "" );
+      	$( "#us_ofic" ).val( "" );
+      }
     }
   });
-	
-  
+
+
   /* Agrega un evento del tipo submit que se ejecutara al enviar el formulario
    * correctamente para que sea procesado por AJAX y luego por el archivo .php
    * que le corresponda dependiendo del caso.*/
-  $( "#form_usuarios" ).submit( function(evento) {
+  $( "#form_usuarios" ).submit( function( evento ) {
     /**
      * @var    $data          arreglo de datos que contiene el formulario con el
      *                        atributo 'name'.
@@ -100,20 +121,15 @@ $( document ).ready( function(){
     /* Llamada al procedimiento que inserta, edita o borra los datos, pasando la data
      * del formulario.
      */
-	  if(sessionStorage.tipo_consulta === "editar" && sessionStorage.id != null){
-		 // Llamada al procedimiento de edicion de usuario.
-		  editar_usuario(data);
-	  }else if(sessionStorage.tipo_consulta === "borrar" && sessionStorage.id != null){
-		 // Llamada al procedimiento de eliminacion de usuario.
-		  eliminar_usuario(data);
-	  }else{
-		  // Insercion default de los datos.
-		insertar_usuarios( data );
+	  if ( sessionStorage.tipo_consulta === "editar" && sessionStorage.id !== null ) {
+      // Llamada al procedimiento de edicion de usuario.
+      editar_usuario( data );
+	  } else {
+      // Llamada al procedimiento de insercion de usuario.
+      insertar_usuario( data );
 	  }
-
   });
 
   // FIN DEL AREA DE LOS EVENTOS PARA EL FORMULARIO DE LOS USUARIOS
 
 });
-

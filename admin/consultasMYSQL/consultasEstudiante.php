@@ -139,7 +139,8 @@ function seleccionar_Estudiantes() {
     "INNER JOIN sc_usuarios users " .
     "ON per.sc_usuarios_us_id = users.us_id " .
     "INNER JOIN sc_carreras carr " .
-    "ON est.sc_carreras_ca_id = carr.ca_id"
+    "ON est.sc_carreras_ca_id = carr.ca_id " .
+    "WHERE us_status = 1 AND pe_status = 1 AND es_status = 1"
   );
 
   /* Luego transforma el resultado de la consulta en un archivo .json y lo
@@ -149,79 +150,95 @@ function seleccionar_Estudiantes() {
   echo $resultado;
 }
 
-/* Procedimiento para editar los datos de un estudiante pasandole por parametro el id que en este caso seria el apodo del mismo */
-/* En esta funcion todo cambiara exceptuando el apodo */
-function editar_Estud($id){
-   /* La variable $id hace referencia al campo del apodo */
-   /* Conexion a la base de datos usando una clase pre-definida. */
-   $bdd = new servcomapp_crud_bdd();
-   /* Escapando los caracteres para impedir cualquier tipo de inyeccion SQL. */
-    $nombre = $bdd -> citar_escapar( $_POST['us_nom'] );
-    $apellido = $bdd -> citar_escapar( $_POST['us_ape'] );
-    $correo = $bdd -> citar_escapar( $_POST['us_corr'] );
-    $cedula = $bdd -> citar_escapar( $_POST['us_ced'] );
-    $telefono = $bdd -> citar_escapar( $_POST['us_tel'] );
-    $clave = $bdd -> citar_escapar( $_POST['us_cla'] );
-    $carrera = $bdd -> citar_escapar( $_POST['us_carr'] );
-    
-   /* Variable que almacena el id contable del usuario */
-   $usuario_id = $bdd -> seleccionar( "SELECT us_id FROM sc_usuarios WHERE us_apodo = '" . $id  . "'");
-    
-   /* Query que almacena un array de la columna carreras */
-   $carrera_i = $bdd -> seleccionar( "SELECT ca_id FROM sc_carreras WHERE ca_nombre = " . $carrera );
-   
-   /* Almacenamiento de valor fijo del select */
-   $usuario_id_cons = $usuario_id[0]['us_id'];
-    
-   /* Query para la cedula vieja */
-   $cedula_vieja = $bdd -> seleccionar( "SELECT pe_cedula FROM sc_personas WHERE sc_usuarios_us_id = '" . $usuario_id_cons  . "'");
-    
-    /* Variable para almacenar la cedula vieja */
-    $cedula_id_cons = $cedula_vieja[0]['pe_cedula'];
-    
-    /* Query que act el nombre y el apodo del usuario a editar */
-   $resultado_usuario = $bdd -> consultar( "UPDATE" . " sc_usuarios SET us_nombre=" . $nombre . ", us_clave=" . $clave . " WHERE us_apodo='" . $id .  "'");
-    
-    /* Query que act los campos en la tabla personas */ 
-   $resultado_personas = $bdd -> consultar( "UPDATE" . " sc_personas SET pe_nombre=" . $nombre . ", pe_apellido=" . $apellido . ", pe_correo=" . $correo . ", pe_telefono=" . $telefono . ", pe_cedula=" . $cedula . " WHERE sc_usuarios_us_id='" . $usuario_id_cons . "'");
-    
-    /* Query que act el nombre y el apodo del usuario a editar */
-   $resultado_estudiantes = $bdd -> consultar( "UPDATE" . " sc_estudiantes SET sc_personas_pe_cedula=" . $cedula . ", sc_carreras_ca_id=" . $carrera_i[0]['ca_id'] . " WHERE sc_personas_pe_cedula='" . $cedula_id_cons .  "'");
-    
-    //Cierra la conexion a la base de datos.
-    $bdd -> cerrar_conexion();
+/* Procedimiento que edita o modifica los datos de un usuario del tipo
+ * estudiante.
+ */
+function editar_Estudiante( $id_busqueda ) {
 
-    echo $cedula_id_cons;
+  /* La variable $id hace referencia al campo del apodo */
+  /* Conexion a la base de datos usando una clase pre-definida. */
+  $bdd = new servcomapp_crud_bdd();
+
+  /* Escapando los caracteres para impedir cualquier tipo de inyeccion SQL. */
+  $nombre = $bdd -> citar_escapar( $_POST['us_nom'] );
+  $apellido = $bdd -> citar_escapar( $_POST['us_ape'] );
+  $correo = $bdd -> citar_escapar( $_POST['us_corr'] );
+  $cedula = $bdd -> citar_escapar( $_POST['us_ced'] );
+  $telefono = $bdd -> citar_escapar( $_POST['us_tel'] );
+  $apodo = $bdd -> citar_escapar( $_POST['us_apo'] );
+  $clave = $bdd -> citar_escapar( $_POST['us_cla'] );
+  $carrera = $bdd -> citar_escapar( $_POST['us_carr'] );
+  $id_busqueda = $bdd -> citar_escapar( $id_busqueda );
+
+  $carrera_id = $bdd -> seleccionar( "SELECT ca_id FROM sc_carreras WHERE ca_nombre = " . $carrera );
+
+  $resultado_usuarios = $bdd -> consultar(
+    'UPDATE sc_estudiantes est ' .
+      'INNER JOIN sc_personas per ' .
+      'ON est.sc_personas_pe_cedula = per.pe_cedula ' .
+      'INNER JOIN sc_usuarios users ' .
+      'ON per.sc_usuarios_us_id = users.us_id ' .
+      'SET us_apodo = ' . $apodo . ',' .
+      'us_clave = ' . $clave . ',' .
+      'us_nombre = ' . $nombre . ',' .
+      'pe_cedula = ' . $cedula . ',' .
+      'pe_nombre = ' . $nombre . ',' .
+      'pe_apellido = ' . $apellido . ',' .
+      'pe_correo = ' . $correo . ',' .
+      'pe_telefono = ' . $telefono . ',' .
+      'sc_carreras_ca_id = ' . $carrera_id[0]['ca_id'] .
+	    ' WHERE us_apodo = ' . $id_busqueda
+  );
+
+  /* Comprueba si la consulta tuvo exito o no y dependiendo de ello devuelve
+   * true o false.
+   */
+  if ( $resultado_usuarios === true ) {
+    echo "true";
+  } else {
+    echo "false";
+  }
+  //Cierra la conexion a la base de datos.
+  $bdd -> cerrar_conexion();
 }
 
-function eliminar_Estud($id, $tipo){
-    /* La variable $id hace referencia al campo del apodo */
-   /* Conexion a la base de datos usando una clase pre-definida. */  
-   $delete = 0;
-   $bdd = new servcomapp_crud_bdd();
-    
-    if($tipo == "estudiante"){
-        
-    /* Consulta para obtener el arreglo de la columna del id del usuario */
-    $id_persona_array = $bdd -> seleccionar( "SELECT us_id FROM sc_usuarios WHERE us_apodo = " . $id );
-    
-    /* Se busca el valor entero del arreglo*/
-    $id_persona = $id_persona_array[0]['us_id'];
+// Procedimiento que realiza una consulta que elimina a un estudiante
+function eliminar_Estudiante( $id_busqueda ) {
 
-    // PROBLEM HERE !
-    // Se act la tabla principal el estado a 0.
-    $resultado_usuarios = $bdd -> consultar( "UPDATE" . " sc_usuarios SET us_status=" . $delete . " WHERE us_id='" . $id_persona .  "'");
-    
-    // Act tablas secundarias vinculadas con el id de persona
-    
-    /*
-    $resultado_personas= $bdd -> consultar( "UPDATE" . " sc_personas SET sc_usuarios_us_id = 0 FROM sc_personas INNER JOIN sc_usuarios ON (us_id = sc_usuarios_us_id) WHERE us_id=" . $id_persona);
-    */
-        
-    }
-  
-   //Cierra la conexion a la base de datos.
-    $bdd -> cerrar_conexion();
+  /* Crea una nuevo objeto que realizara todas las operaciones pertinentes a
+   * la base de datos.
+   */
+  $bdd = new servcomapp_crud_bdd();
+
+  $id_busqueda = $bdd -> citar_escapar( $id_busqueda );
+
+  /* Elimina logicamente el registro solicitado por el nombre de usuario,
+   * mediante la modificacion del valor status de cada tabla a 0.
+   *
+   * Instruccion tipo UPDATE
+   */
+  $resultado_usuarios = $bdd -> consultar( "UPDATE sc_estudiantes est INNER JOIN " .
+   "sc_personas per " .
+   "ON est.sc_personas_pe_cedula = per.pe_cedula " .
+   "INNER JOIN sc_usuarios users " .
+   "ON per.sc_usuarios_us_id = users.us_id " .
+   "SET es_status = 0, " .
+   "pe_status = 0, " .
+   "us_status = 0 " .
+   "WHERE us_apodo = " . $id_busqueda
+  );
+
+  /* Comprueba si la consulta tuvo exito o no y dependiendo de ello devuelve
+   * true o false.
+   */
+  if ( $resultado_usuarios === true ) {
+    echo "true";
+  } else {
+    echo "false";
+  }
+
+  //Cierra la conexion a la base de datos.
+  $bdd -> cerrar_conexion();
 }
 
 /* Verifica que tipo de consulta se envio y ejecuta su caso correspondiente.
@@ -243,17 +260,14 @@ switch ( $_POST['tipo_cons'] ) {
 
   // Editar
   case 'editar':
-    # code..
-    $id = $_POST['id_busq'];
-    editar_Estud($id);
+    $id_busqueda = $_POST['id_busq'];
+    editar_Estudiante( $id_busqueda );
     break;
 
   // Eliminar
   case 'eliminar':
-    # code...
-    $id = $_POST['id_busq'];
-    $tipo = $_POST['tipo'];
-    eliminar_Estud($id, $tipo);
+    $id_busqueda = $_POST['id_busq'];
+    eliminar_Estudiante( $id_busqueda );
     break;
 
   // Accion por defecto

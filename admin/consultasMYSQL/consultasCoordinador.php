@@ -138,7 +138,8 @@ function seleccionar_Coordinadores() {
     "INNER JOIN sc_usuarios users " .
     "ON per.sc_usuarios_us_id = users.us_id " .
     "INNER JOIN sc_facultades fac " .
-    "ON coord.sc_facultades_fa_id = fac.fa_id"
+    "ON coord.sc_facultades_fa_id = fac.fa_id " .
+    "WHERE us_status = 1 AND pe_status = 1 AND co_status = 1"
   );
 
   /* Luego transforma el resultado de la consulta en un archivo .json y lo
@@ -149,49 +150,94 @@ function seleccionar_Coordinadores() {
 }
 
 // Procedimiento para editar un coordinador.
-function editar_Coordinadores($id){
-     /* La variable $id hace referencia al campo del apodo */
-    /* Conexion a la base de datos usando una clase pre-definida. */
-    $bdd = new servcomapp_crud_bdd();
-    /* Escapando los caracteres para impedir cualquier tipo de inyeccion SQL. */
-    $nombre = $bdd -> citar_escapar( $_POST['us_nom'] );
-    $apellido = $bdd -> citar_escapar( $_POST['us_ape'] );
-    $correo = $bdd -> citar_escapar( $_POST['us_corr'] );
-    $cedula = $bdd -> citar_escapar( $_POST['us_ced'] );
-    $telefono = $bdd -> citar_escapar( $_POST['us_tel'] );
-    $clave = $bdd -> citar_escapar( $_POST['us_cla'] );
-    $facultad = $bdd -> citar_escapar( $_POST['us_fac'] );
-    $ofi = $bdd -> citar_escapar( $_POST['us_ofic'] );
+function editar_Coordinadores( $id_busqueda ) {
 
-   /* Variable que almacena el id contable del usuario */
-   $usuario_id = $bdd -> seleccionar( "SELECT us_id FROM sc_usuarios WHERE us_apodo = '" . $id  . "'");
-    
-   // Query para la busqueda de la facultad
-   $fa_i = $bdd -> seleccionar( "SELECT fa_id FROM sc_facultades WHERE fa_nombre =" . $facultad );
-    
-   $facultad_cons = $fa_i[0]['fa_id'];
-        
-   /* Almacenamiento de valor fijo del select */
-   $usuario_id_cons = $usuario_id[0]['us_id'];
-    
-   /* Query para la cedula vieja */
-   $cedula_vieja = $bdd -> seleccionar( "SELECT pe_cedula FROM sc_personas WHERE sc_usuarios_us_id = '" . $usuario_id_cons  . "'");
-    
-    /* Variable para almacenar la cedula vieja */
-    $cedula_id_cons = $cedula_vieja[0]['pe_cedula'];
-    
-    /* Query que act el nombre y el apodo del usuario a editar */
-   $resultado_usuario = $bdd -> consultar( "UPDATE" . " sc_usuarios SET us_nombre=" . $nombre . ", us_clave=" . $clave . " WHERE us_apodo='" . $id .  "'");
-    
-    /* Query que act los campos en la tabla personas */ 
-   $resultado_personas = $bdd -> consultar( "UPDATE" . " sc_personas SET pe_nombre=" . $nombre . ", pe_apellido=" . $apellido . ", pe_correo=" . $correo . ", pe_telefono=" . $telefono . ", pe_cedula=" . $cedula . " WHERE sc_usuarios_us_id='" . $usuario_id_cons . "'");
-    
-   /* Query que act la oficina y la facultad del coordinador */
-   $resultado_coordinadores = $bdd -> consultar( "UPDATE" . " sc_coordinadores SET co_oficina=" . $ofi . ", sc_facultades_fa_id=" . $facultad_cons . " WHERE sc_personas_pe_cedula='" . $cedula_id_cons .  "'");
-        
-    //Cierra la conexion a la base de datos.
-    $bdd -> cerrar_conexion();
+  /* La variable $id hace referencia al campo del apodo */
+  /* Conexion a la base de datos usando una clase pre-definida. */
+  $bdd = new servcomapp_crud_bdd();
 
+  /* Escapando los caracteres para impedir cualquier tipo de inyeccion SQL. */
+  $nombre = $bdd -> citar_escapar( $_POST['us_nom'] );
+  $apellido = $bdd -> citar_escapar( $_POST['us_ape'] );
+  $correo = $bdd -> citar_escapar( $_POST['us_corr'] );
+  $cedula = $bdd -> citar_escapar( $_POST['us_ced'] );
+  $telefono = $bdd -> citar_escapar( $_POST['us_tel'] );
+  $apodo = $bdd -> citar_escapar( $_POST['us_apo'] );
+  $clave = $bdd -> citar_escapar( $_POST['us_cla'] );
+  $facultad = $bdd -> citar_escapar( $_POST['us_fac'] );
+  $oficina = $bdd -> citar_escapar( $_POST['us_ofic'] );
+  $id_busqueda = $bdd -> citar_escapar( $id_busqueda );
+
+  $facultad_id = $bdd -> seleccionar( "SELECT fa_id FROM sc_facultades WHERE fa_nombre =" . $facultad );
+
+  $resultado_usuarios = $bdd -> consultar(
+    'UPDATE sc_coordinadores coord ' .
+      'INNER JOIN sc_personas per ' .
+      'ON coord.sc_personas_pe_cedula = per.pe_cedula ' .
+      'INNER JOIN sc_usuarios users ' .
+      'ON per.sc_usuarios_us_id = users.us_id ' .
+      'SET us_apodo = ' . $apodo . ',' .
+      'us_clave = ' . $clave . ',' .
+      'us_nombre = ' . $nombre . ',' .
+      'pe_cedula = ' . $cedula . ',' .
+      'pe_nombre = ' . $nombre . ',' .
+      'pe_apellido = ' . $apellido . ',' .
+      'pe_correo = ' . $correo . ',' .
+      'pe_telefono = ' . $telefono . ',' .
+      'sc_facultades_fa_id = ' . $facultad_id[0]['fa_id'] . ',' .
+      'co_oficina = ' . $oficina .
+	    ' WHERE us_apodo = ' . $id_busqueda
+  );
+
+  /* Comprueba si la consulta tuvo exito o no y dependiendo de ello devuelve
+   * true o false.
+   */
+  if ( $resultado_usuarios === true ) {
+    echo "true";
+  } else {
+    echo "false";
+  }
+  //Cierra la conexion a la base de datos.
+  $bdd -> cerrar_conexion();
+}
+
+// Procedimiento que realiza una consulta que elimina a un coordinador
+function eliminar_Coordinador( $id_busqueda ) {
+
+  /* Crea una nuevo objeto que realizara todas las operaciones pertinentes a
+   * la base de datos.
+   */
+  $bdd = new servcomapp_crud_bdd();
+
+  $id_busqueda = $bdd -> citar_escapar( $id_busqueda );
+
+  /* Elimina logicamente el registro solicitado por el nombre de usuario,
+   * mediante la modificacion del valor status de cada tabla a 0.
+   *
+   * Instruccion tipo UPDATE
+   */
+  $resultado_usuarios = $bdd -> consultar( "UPDATE sc_coordinadores coord INNER JOIN " .
+   "sc_personas per " .
+   "ON coord.sc_personas_pe_cedula = per.pe_cedula " .
+   "INNER JOIN sc_usuarios users " .
+   "ON per.sc_usuarios_us_id = users.us_id " .
+   "SET co_status = 0, " .
+   "pe_status = 0, " .
+   "us_status = 0 " .
+   "WHERE us_apodo = " . $id_busqueda
+  );
+
+  /* Comprueba si la consulta tuvo exito o no y dependiendo de ello devuelve
+   * true o false.
+   */
+  if ( $resultado_usuarios === true ) {
+    echo "true";
+  } else {
+    echo "false";
+  }
+
+  //Cierra la conexion a la base de datos.
+  $bdd -> cerrar_conexion();
 }
 
 /* Verifica que tipo de consulta se envio y ejecuta su caso correspondiente.
@@ -213,14 +259,14 @@ switch ( $_POST['tipo_cons'] ) {
 
   // Editar
   case 'editar':
-    # code...
-    $id = $_POST['id_busq'];
-    editar_Coordinadores($id);
+    $id_busqueda = $_POST['id_busq'];
+    editar_Coordinadores( $id_busqueda );
     break;
 
   // Eliminar
   case 'eliminar':
-    # code...
+    $id_busqueda = $_POST['id_busq'];
+    eliminar_Coordinador( $id_busqueda );
     break;
 
   // Accion por defecto
